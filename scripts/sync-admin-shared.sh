@@ -10,7 +10,7 @@ for component in BootstrapIcons HomeOverview FoodAnalyzer DietVideos LandingPage
   cp "$PUBLIC_DIR/src/components/$component.tsx" "$ADMIN_DIR/src/components/$component.tsx"
 done
 cp "$PUBLIC_DIR/src/components/food-analyzer.css" "$PUBLIC_DIR/src/components/news.css" "$ADMIN_DIR/src/components/"
-for lib in dates news push supabase; do
+for lib in base dates news push supabase; do
   cp "$PUBLIC_DIR/src/lib/$lib.ts" "$ADMIN_DIR/src/lib/$lib.ts"
 done
 mkdir -p "$ADMIN_DIR/public/images"

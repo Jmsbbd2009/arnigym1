@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { withBase } from '../lib/base';
 import { Download, ShareIos, Plus, X } from './BootstrapIcons';
 import { Modal } from './SupportModals';
 import { useLanguage } from './Language';
@@ -86,7 +87,7 @@ export function InstallPWA() {
 
   return <>
     <aside className="pwa-install" role="dialog" aria-label={copy[0]}>
-      <span className="pwa-install-icon"><img src="/icon-192.png" alt="" width={28} height={28}/></span>
+      <span className="pwa-install-icon"><img src={withBase('/icon-192.png')} alt="" width={28} height={28}/></span>
       <span className="pwa-install-copy"><b>{copy[0]}</b><small>{copy[1]}</small></span>
       <button type="button" className="nf-btn" onClick={install}><Download size={14}/>{copy[2]}</button>
       <button type="button" className="pwa-install-close" onClick={close} aria-label={tr('Keyinroq', 'Позже')}><X size={14}/></button>

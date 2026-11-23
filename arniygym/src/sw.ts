@@ -19,11 +19,16 @@ cleanupOutdatedCaches();
 self.addEventListener('install', () => { void self.skipWaiting(); });
 self.addEventListener('activate', (event) => { event.waitUntil(self.clients.claim()); });
 
+// Scope-relative URLs so the worker works at "/" and at sub-paths like "/arnygym/".
+const SCOPE = self.registration.scope;
+const SCOPE_PATH = new URL(SCOPE).pathname;
+const scoped = (path: string) => new URL(path.replace(/^\/+/, ''), SCOPE).href;
+
 const PUBLIC_NEWS_CACHE = 'arniy-public-news-v1';
 const NEWS_IMAGE_CACHE = 'arniy-news-images-v1';
 
 // SPA navigations: try the network, fall back to the precached shell so cached news can render.
-const shell = createHandlerBoundToURL('/index.html');
+const shell = createHandlerBoundToURL(scoped('index.html'));
 registerRoute(new NavigationRoute(async (options) => {
   try {
     const response = await fetch(options.request);
@@ -32,7 +37,7 @@ registerRoute(new NavigationRoute(async (options) => {
   } catch {
     return shell(options);
   }
-}, { denylist: [/^\/sw\.js$/, /^\/workbox-/, /\.[a-z0-9]+$/i] }));
+}, { denylist: [/\/sw\.js$/, /\/workbox-[^/]*$/, /\.[a-z0-9]+$/i] }));
 
 const isSupabase = (url: URL) => url.hostname.endsWith('.supabase.co') || url.hostname.endsWith('.supabase.in');
 
@@ -60,15 +65,17 @@ new CacheFirst({
 }));
 
 setCatchHandler(async ({ request }) => {
-  if (request.destination === 'document') return (await matchPrecache('/offline.html')) || Response.error();
+  if (request.destination === 'document') return (await matchPrecache(scoped('offline.html'))) || Response.error();
   return Response.error();
 });
 
 // ---------------- Web Push ----------------
 type PushPayload = { title?: string; body?: string; url?: string; tag?: string; news_id?: string };
 function sameOriginPath(value: unknown) {
-  if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//')) return '/';
-  try { const url = new URL(value, self.location.origin); return url.origin === self.location.origin ? url.pathname + url.search : '/'; } catch { return '/'; }
+  if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//')) return SCOPE_PATH;
+  // Server payloads use app paths ("/news/<id>"); prefix the deploy base when it is missing.
+  const path = value.startsWith(SCOPE_PATH) ? value : SCOPE_PATH + value.replace(/^\/+/, '');
+  try { const url = new URL(path, self.location.origin); return url.origin === self.location.origin ? url.pathname + url.search : SCOPE_PATH; } catch { return SCOPE_PATH; }
 }
 
 self.addEventListener('push', (event) => {
@@ -77,8 +84,8 @@ self.addEventListener('push', (event) => {
   const title = String(data.title || 'ArniyGym').slice(0, 120);
   const options: NotificationOptions & { renotify?: boolean } = {
     body: String(data.body || 'Zaldan yangi xabar.').slice(0, 240),
-    icon: '/icon-192.png',
-    badge: '/icon-192-maskable.png',
+    icon: scoped('icon-192.png'),
+    badge: scoped('icon-192-maskable.png'),
     tag: typeof data.tag === 'string' ? data.tag.slice(0, 64) : undefined,
     renotify: Boolean(data.tag),
     data: { url: sameOriginPath(data.url) },

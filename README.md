@@ -73,10 +73,10 @@ Interfeys qora-grafit fon, ArniyGym qizil aksenti, murabbiy portretlari va telef
 
 1. **Migration**: mavjud bazada `arniygym/supabase/migrations/202611230005_news_pwa_push.sql` ni SQL Editor’da ishga tushiring (yoki `supabase db push`). U idempotent: eski `featured` ustunini `is_pinned` ga o‘tkazadi, eski kategoriyalarni (`Zal e’loni`, `Ish vaqti`, `Aksiya`, `Yangi trenajyor`) yangi kalitlarga ko‘chiradi, ikkinchi “news” jadvalini yaratmaydi. Yangi bazada `schema.sql` yetarli.
 2. **VAPID kalitlari**: `npx web-push generate-vapid-keys` bilan yarating.
-   - Netlify (asosiy sayt) → Environment variables: `VITE_VAPID_PUBLIC_KEY=<public key>`.
+   - GitHub → Settings → Secrets and variables → Actions → **Variables**: `VITE_VAPID_PUBLIC_KEY=<public key>`.
    - Supabase → Edge Functions → Secrets: `VAPID_SUBJECT=mailto:siz@domen.uz`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`. Xususiy kalit hech qachon `VITE_` bilan boshlanmasin.
 3. **Edge Functions deploy**: `supabase functions deploy news-image news-push push-subscribe` (ular `config.toml`’da `verify_jwt=false`, chunki ichida sessiya, faol qurilma va admin roli alohida tekshiriladi).
-4. **Netlify**: asosiy sayt va admin sayt uchun `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`; asosiy saytga `VITE_VAPID_PUBLIC_KEY` va `VITE_SITE_URL`. Supabase secrets’da `APP_ORIGINS` ikkala domenni o‘z ichiga olsin (CORS).
+4. **GitHub Pages deploy**: `main` branchga har push’da `.github/workflows/pages.yml` ikkala ilovani yig‘ib, GitHub Pages’ga chiqaradi: sayt — `https://<owner>.github.io/<repo>/`, admin — `https://<owner>.github.io/<repo>/admin/`. Repo → Settings → Pages → Source: **GitHub Actions**. `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` workflow’da standart qiymatga ega, kerak bo‘lsa Actions Variables orqali almashtiriladi. Supabase Vault’dagi `APP_ORIGINS` sayt domenini (`https://<owner>.github.io`) o‘z ichiga olsin (CORS), `APP_ORIGIN` esa to‘liq sayt manzili (`https://<owner>.github.io/<repo>`). Boshqa domen yoki ildiz yo‘lda ishlatish uchun build’da `BASE_PATH=/` qo‘ying.
 5. **Push ruxsati**: foydalanuvchi “Yangiliklar” sahifasida “Bildirishnomani yoqish” tugmasini bosadi. iPhone’da push faqat ilova bosh ekranga qo‘shilgandan keyin (iOS 16.4+) ishlaydi — sahifa buni o‘zi tushuntiradi.
 6. **Lokal ishga tushirish**: `./start.sh` (asosiy sayt `http://localhost:5173`, admin `http://localhost:5174`). Service worker `npm run build && npm run preview` rejimida to‘liq ishlaydi.
 

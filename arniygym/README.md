@@ -3,7 +3,7 @@
 ArniyGym is delivered as two separate React/Vite projects with one Supabase backend:
 
 - `outputs/arniygym` — public gym landing page and the signed-in member PWA. There is no admin URL in this app.
-- `outputs/arniygym-admin` — separate admin site for a different Netlify site, with password + Telegram 2FA login.
+- `outputs/arniygym-admin` — separate admin app (published under `/admin/` on GitHub Pages), with password + Telegram 2FA login.
 
 The landing page is public. Member access uses Telegram OTP. AI meal scanning and workout videos stay locked unless the member has an active subscription. Admins can publish gym announcements and manage categories, workouts, diets, plans, subscriptions, payments, and site text.
 
@@ -18,7 +18,7 @@ The PWA uses a standalone manifest and caches the application shell, static asse
 
 ## Run the separate admin app
 
-Use the `arniygym-admin` directory as a second Netlify site/repository base. Copy its `.env.example` to `.env.local` and use the same Supabase URL and publishable/anon key. Set its build command to `npm ci && npm run build` and publish directory to `dist`. Enable Netlify site password protection for that site in its hosting settings. The application then requires the Supabase admin login and Telegram 2FA as a second check.
+Copy `arniygym-admin/.env.example` to `.env.local` and use the same Supabase URL and publishable/anon key, then `npm ci && npm run dev`. In production the GitHub Pages workflow builds it under `/<repo>/admin/`. The application requires the Supabase admin login and Telegram 2FA.
 
 The main member site contains no `/admin` route. Keep the admin site password private and share it only with administrators.
 

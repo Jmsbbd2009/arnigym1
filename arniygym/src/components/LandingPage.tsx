@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { withBase, withSiteBase } from '../lib/base';
 import { ArrowDown, ArrowRight, ArrowUpRight, Clock3, Dumbbell, Instagram, MapPin, ShieldCheck, Sparkles } from './BootstrapIcons';
 import { NewsSection } from './News';
 import { invoke, supabase } from '../lib/supabase';
@@ -38,16 +39,16 @@ export function LandingPage({ onAuth, onNavigate, onOpenNews }: Props) {
         <div className="landing-actions"><button className="btn-red" onClick={onAuth}>Kirish va boshlash <ArrowRight size={15}/></button>{locationUrl&&<a className="btn-quiet" href={locationUrl} target="_blank" rel="noreferrer">Zal manzili <ArrowUpRight size={14}/></a>}</div>
         <div className="landing-stats"><span><Dumbbell/><b>Mashqlar</b><small>MUSHAK GURUHLARI BO‘YICHA</small></span><span><Sparkles/><b>Ovqatlanish</b><small>MASSA YOKI OZISH MAQSADI</small></span><span><ShieldCheck/><b>Progress</b><small>O‘ZING QAYD ETGAN NATIJA</small></span></div>
       </div>
-      <div className="landing-photo-wrap"><img className="landing-photo" src="/images/coach-bobur.webp" alt="Sport mashg‘ulotidan lavha" width="412" height="554" fetchPriority="high" decoding="async"/><div className="landing-photo-shade"/><div className="photo-tag"><span className="live-dot"/> ARNIYGYM <small>MASHG‘ULOTDAN</small></div><div className="photo-stamp">ARNIYGYM<br/><b>MASHG‘ULOTNI MAQSAD BILAN</b></div></div>
+      <div className="landing-photo-wrap"><img className="landing-photo" src={withBase('/images/coach-bobur.webp')} alt="Sport mashg‘ulotidan lavha" width="412" height="554" fetchPriority="high" decoding="async"/><div className="landing-photo-shade"/><div className="photo-tag"><span className="live-dot"/> ARNIYGYM <small>MASHG‘ULOTDAN</small></div><div className="photo-stamp">ARNIYGYM<br/><b>MASHG‘ULOTNI MAQSAD BILAN</b></div></div>
       <a className="landing-scroll" href="#zal-haqida">PASTGA O‘TING <ArrowDown size={13}/></a>
     </section>
 
     <section className="landing-feature-row" id="zal-haqida">
       <div className="landing-feature-copy"><div className="eyebrow muted">ZAL VA PLATFORMА</div><h2>Reja bilan shug‘ullan.<br/><i>Natijani o‘lcha.</i></h2><p>ArniyGym mashg‘ulotlarni, ovqatlanish qaydlarini va shaxsiy progressni bir joyda yuritishga yordam beradi.</p><div className="landing-benefits"><span><Dumbbell/> 6 mushak guruhi</span><span><Clock3/> Dam olish taymeri</span><span><Sparkles/> AI taom tahlili</span></div><button className="btn-outline" onClick={() => onNavigate('about')}>Biz haqimizda <ArrowRight size={14}/></button></div>
-      <div className="coach-portrait-card"><img src="/images/coach-portrait.webp" alt="ArniyGym uchun taqdim etilgan portret" width="225" height="225" loading="lazy" decoding="async"/><div><small>ARNIYGYM / PORTRET</small><b>Mashg‘ulotdan lavha</b><span>Platforma materiallari</span></div></div>
+      <div className="coach-portrait-card"><img src={withBase('/images/coach-portrait.webp')} alt="ArniyGym uchun taqdim etilgan portret" width="225" height="225" loading="lazy" decoding="async"/><div><small>ARNIYGYM / PORTRET</small><b>Mashg‘ulotdan lavha</b><span>Platforma materiallari</span></div></div>
     </section>
 
-    <NewsSection onOpen={id => onOpenNews ? onOpenNews(id) : location.assign(`/news/${id}`)} onAll={() => onOpenNews ? onOpenNews(null) : location.assign('/news')}/>
+    <NewsSection onOpen={id => onOpenNews ? onOpenNews(id) : location.assign(withSiteBase(`/news/${id}`))} onAll={() => onOpenNews ? onOpenNews(null) : location.assign(withSiteBase('/news'))}/>
 
     <section className="landing-plan-band"><div><div className="eyebrow"><i/> O‘ZINGGA MOS TARIFNI TANLA</div><h2>Bugun boshlagin.<br/><span>Izchil davom et.</span></h2><p>Oylik yoki yillik a’zolik orqali platformadagi mashq va ovqatlanish materiallariga ulan.</p></div><div className="landing-plan-actions"><button className="btn-red" onClick={() => onNavigate('plans')}>Tariflarni ko‘rish <ArrowRight size={15}/></button><button className="btn-outline" onClick={onAuth}>Kirish / ro‘yxatdan o‘tish</button></div></section>
 

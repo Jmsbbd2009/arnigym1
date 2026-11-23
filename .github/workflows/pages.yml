@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+# Builds the member site and the admin panel and publishes both to GitHub Pages:
+#   https://<owner>.github.io/<repo>/        -> member site (PWA)
+#   https://<owner>.github.io/<repo>/admin/  -> admin panel
+# Backend (database, auth, Edge Functions, Telegram bot, cron) runs on Supabase.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  # Public, browser-safe values (Supabase publishable/anon key is protected by RLS).
+  # Override them in Settings → Secrets and variables → Actions → Variables if needed.
+  VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || 'https://wqmeahawfnkiuapzzkns.supabase.co' }}
+  VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxbWVhaGF3Zm5raXVhcHp6a25zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0Mzk3MTUsImV4cCI6MjExMTAxNTcxNX0.RXWkL_s7nowTECTp2rVwvOc4QFYHWrQGztAPZ7FyIrY' }}
+  VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY }}
+  VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - id: pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Build member site
+        working-directory: arniygym
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}/
+        run: npm ci && npm run build
+      - name: Build admin panel
+        working-directory: arniygym-admin
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/admin/
+          VITE_PUBLIC_SITE_BASE: ${{ steps.pages.outputs.base_path }}/
+        run: npm ci && npm run build
+      - name: Assemble Pages artifact
+        run: |
+          mkdir -p _site/admin
+          cp -a arniygym/dist/. _site/
+          cp -a arniygym-admin/dist/. _site/admin/
+          # GitHub Pages serves 404.html for unknown paths: reuse the SPA shell for deep links.
+          cp _site/index.html _site/404.html
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

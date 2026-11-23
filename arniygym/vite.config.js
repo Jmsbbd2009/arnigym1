@@ -12,7 +12,7 @@ function seoFiles() {
       const configured = loadEnv(mode, process.cwd(), '').VITE_SITE_URL || '';
       try {
         const url = new URL(configured);
-        if (url.protocol === 'https:' && url.pathname === '/' && !url.search && !url.hash) siteOrigin = url.origin;
+        if (url.protocol === 'https:' && !url.search && !url.hash) siteOrigin = url.origin + url.pathname.replace(/\/+$/, '');
       } catch { /* Local builds deliberately stay out of search indexes until a production origin is set. */ }
     },
     async closeBundle() {
@@ -28,27 +28,31 @@ function seoFiles() {
       await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteOrigin}/sitemap.xml\n`, 'utf8');
       const indexPath = resolve(output, 'index.html');
       let html = await readFile(indexPath, 'utf8');
-      html = html.replace('<link rel="canonical" href="/" />', `<link rel="canonical" href="${siteOrigin}/" />`)
-        .replace('<meta property="og:image" content="/images/coach-bobur.webp" />', `<meta property="og:image" content="${siteOrigin}/images/coach-bobur.webp" />`);
+      html = html.replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${siteOrigin}/" />`)
+        .replace(/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${siteOrigin}/images/coach-bobur.webp" />`);
       await writeFile(indexPath, html, 'utf8');
     },
   };
 }
 
+// BASE_PATH lets the same build run at a domain root ("/") or a sub-path (GitHub Pages "/arnygym/").
+const BASE = (process.env.BASE_PATH || '/').replace(/\/?$/, '/');
+
 export default defineConfig({
+  base: BASE,
   plugins: [react(), VitePWA({ registerType: 'autoUpdate', strategies: 'injectManifest', srcDir: 'src', filename: 'sw.ts', manifest: {
-    id: '/', name: 'ArniyGym', short_name: 'ArniyGym', description: 'Mashqlar, ovqatlanish va zal yangiliklari', categories: ['health', 'fitness', 'sports'], dir: 'ltr',
-    lang: 'uz', scope: '/', theme_color: '#09090B', background_color: '#09090B', display: 'standalone', display_override: ['standalone', 'minimal-ui'], orientation: 'portrait', start_url: '/',
+    id: BASE, name: 'ArniyGym', short_name: 'ArniyGym', description: 'Mashqlar, ovqatlanish va zal yangiliklari', categories: ['health', 'fitness', 'sports'], dir: 'ltr',
+    lang: 'uz', scope: BASE, theme_color: '#09090B', background_color: '#09090B', display: 'standalone', display_override: ['standalone', 'minimal-ui'], orientation: 'portrait', start_url: BASE,
     icons: [
-      { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-      { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-      { src: '/icon-192-maskable.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
-      { src: '/icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
-      { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }
+      { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: 'icon-192-maskable.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+      { src: 'icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }
     ],
     shortcuts: [
-      { name: 'Zal yangiliklari', short_name: 'Yangiliklar', url: '/news', icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }] },
-      { name: 'Mashqlar', short_name: 'Mashqlar', url: '/workouts/shoulders', icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }] }
+      { name: 'Zal yangiliklari', short_name: 'Yangiliklar', url: 'news', icons: [{ src: 'icon-192.png', sizes: '192x192', type: 'image/png' }] },
+      { name: 'Mashqlar', short_name: 'Mashqlar', url: 'workouts/shoulders', icons: [{ src: 'icon-192.png', sizes: '192x192', type: 'image/png' }] }
     ]
   },
   injectManifest: { globPatterns: ['**/*.{js,css,html,svg,png,webp,woff,woff2}'], globIgnores: ['**/images/*.png'], maximumFileSizeToCacheInBytes: 3 * 1024 * 1024 },

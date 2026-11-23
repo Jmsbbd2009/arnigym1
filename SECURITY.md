@@ -38,7 +38,7 @@ Bu hujjat loyihadagi himoya choralarini va ularni buzmaslik uchun qoidalarni jam
 
 - Yangilik matni React matn tugunlari orqali chiqadi (`white-space: pre-line`), HTML sifatida talqin qilinmaydi; `dangerouslySetInnerHTML` faqat `<` belgisi escape qilingan JSON-LD uchun ishlatiladi. Kelajakda rich text kerak bo‘lsa, DOMPurify bilan ruxsat etilgan teglar ro‘yxati orqali tozalang.
 - Rasm havolalari faqat HTTPS va faqat sozlangan Supabase domenidan qabul qilinadi.
-- Netlify sarlavhalari: CSP (`default-src 'self'`, `worker-src`/`manifest-src 'self'`, `frame-ancestors 'none'`), HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, COOP. Admin sayt `noindex` va Netlify parol himoyasi ostida bo‘lishi kerak.
+- GitHub Pages HTTP sarlavha o‘rnatishga ruxsat bermaydi, shuning uchun CSP (`default-src 'self'`, `worker-src`/`manifest-src 'self'`, `object-src 'none'`) va `Referrer-Policy` `<meta>` teglari orqali beriladi; `frame-ancestors`/`X-Frame-Options` o‘rniga ikkala ilova iframe ichida ishga tushishdan bosh tortadi (clickjacking himoyasi). HTTPS va HSTS GitHub Pages tomonidan ta’minlanadi. Admin sayt `noindex`; himoya — Supabase parol + Telegram 2FA + `admin_roles` + RLS (frontendda maxfiy narsa yo‘q).
 - Bitta akkauntdan boshqasiga o‘tilganda brauzerdagi push obunasi bekor qilinadi, shunda umumiy qurilma oldingi foydalanuvchining xabarlarini olmaydi.
 
 ## 6. Offline kesh siyosati

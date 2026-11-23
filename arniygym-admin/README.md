@@ -12,11 +12,9 @@ The SQL schema, Edge Functions, and Telegram bot are maintained in the sibling `
 
 The admin site supports class scheduling, membership QR check-in, freeze approvals, first-session leads, P2P receipt review, automated payment history, and member lookup/export. The Dieta section uploads weight-loss and muscle-gain lessons to Cloudflare Stream. Configure Payme, Cloudflare Stream, Gemini, Telegram, VAPID and other server-only secrets in Supabase Edge Function secrets; never copy them into this frontend.
 
-## Netlify
+## Deploy
 
-Deploy this folder as its own Netlify site (build command `npm ci && npm run build`, publish directory `dist`). Enable Netlify Site Password Protection in that site's access settings. The app then applies Supabase admin authentication and Telegram 2FA after the site password gate.
-
-The code is prepared for a separate Netlify site; it has not been deployed because no Netlify account or site credentials were provided.
+The repository workflow `.github/workflows/pages.yml` builds this app with `BASE_PATH=/<repo>/admin/` and publishes it to GitHub Pages at `https://<owner>.github.io/<repo>/admin/`. Access is protected by Supabase admin login + Telegram 2FA + `admin_roles` + RLS; the frontend contains no secrets. To host it elsewhere, build with `BASE_PATH=/` (default) and serve `dist` with an SPA fallback to `index.html`.
 
 ## Yangiliklar boshqaruvi
 

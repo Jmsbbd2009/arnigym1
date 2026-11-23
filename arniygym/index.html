@@ -2,6 +2,8 @@
 <html lang="uz">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; form-action 'self' https://app.lemonsqueezy.com https://*.lemonsqueezy.com; script-src 'self' https://challenges.cloudflare.com https://app.lemonsqueezy.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co https://*.cloudflarestream.com; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://challenges.cloudflare.com https://*.cloudflarestream.com https://app.lemonsqueezy.com https://*.lemonsqueezy.com; media-src 'self' blob: https://*.cloudflarestream.com; frame-src 'self' https://challenges.cloudflare.com https://app.lemonsqueezy.com https://*.lemonsqueezy.com https://*.cloudflarestream.com; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#09090b" />
     <meta name="description" content="ArniyGym — mashqlar, ovqatlanish va progress bir joyda." />
@@ -9,12 +11,12 @@
     <meta property="og:site_name" content="ArniyGym" />
     <meta property="og:title" content="ArniyGym — fitnes va mashg‘ulot platformasi" />
     <meta property="og:description" content="Mashqlar, ovqatlanish va zal yangiliklarini bir joyda kuzating." />
-    <meta property="og:image" content="/images/coach-bobur.webp" />
+    <meta property="og:image" content="%BASE_URL%images/coach-bobur.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href="/" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="%BASE_URL%" />
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
+    <link rel="icon" href="%BASE_URL%icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>ArniyGym — Kuchliroq har kun</title>
