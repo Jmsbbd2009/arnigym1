@@ -1,4 +1,11 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
+export const service=createClient(Deno.env.get('SUPABASE_URL')!,Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,{auth:{persistSession:false,autoRefreshToken:false}});
+// Runtime secrets: Edge Function secrets (Dashboard) take priority; otherwise values stored in
+// Supabase Vault under the "app:" prefix are used. Vault values are readable only by service_role
+// through public.edge_runtime_secrets(), never by browsers.
+const vaultSecrets:Record<string,string>=await (async()=>{try{const {data,error}=await service.rpc('edge_runtime_secrets');if(error)throw error;return (data||{}) as Record<string,string>}catch(error){console.error('Vault secrets unavailable',error);return {}}})();
+const envGet=Deno.env.get.bind(Deno.env);
+try{(Deno.env as any).get=(key:string)=>envGet(key)??vaultSecrets[key]}catch(error){console.error('Secret fallback disabled',error)}
 const allowedOrigins=new Set([
   ...(Deno.env.get('APP_ORIGINS')||'').split(',').map(value=>value.trim()).filter(Boolean),
   Deno.env.get('APP_ORIGIN')||'',Deno.env.get('ADMIN_APP_ORIGIN')||'',
@@ -16,7 +23,6 @@ function corsHeaders(req?:Request){
 export function json(data:unknown,status=200,req?:Request){return new Response(JSON.stringify(data),{status,headers:{...corsHeaders(req),'Content-Type':'application/json','Cache-Control':'no-store'}})}
 export function preflight(req:Request){if(req.method!=='OPTIONS')return null;const origin=req.headers.get('Origin');if(origin&&!allowedOrigins.has(origin))return new Response('origin not allowed',{status:403,headers:{'Vary':'Origin'}});return new Response(null,{status:204,headers:corsHeaders(req)})}
 export function safeFailure(req:Request,error:unknown,message='So‘rovni bajarib bo‘lmadi.',status=500){console.error(error);return json({error:message},status,req)}
-export const service=createClient(Deno.env.get('SUPABASE_URL')!,Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,{auth:{persistSession:false,autoRefreshToken:false}});
 export async function requireUser(req:Request){
  const token=req.headers.get('Authorization')?.replace(/^Bearer\s+/i,'');if(!token)throw new Error('Kirish talab qilinadi.');
  const client=createClient(Deno.env.get('SUPABASE_URL')!,Deno.env.get('SUPABASE_ANON_KEY')!,{global:{headers:{Authorization:`Bearer ${token}`}},auth:{persistSession:false,autoRefreshToken:false}});
