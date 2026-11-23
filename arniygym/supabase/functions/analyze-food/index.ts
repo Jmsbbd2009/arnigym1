@@ -17,20 +17,33 @@ async function hasPremium(userId: string) {
   return !!data;
 }
 async function callVision(apiKey: string, prompt: string, schema: Record<string, unknown>, imageBase64: string, mediaType: string) {
-  const model = Deno.env.get('GEMINI_MODEL') || 'gemini-3.8-flash';
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-    method: 'POST',
-    headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [
-        { text: prompt },
-        { inlineData: { mimeType: mediaType, data: imageBase64 } },
-      ] }],
-      generationConfig: { responseMimeType: 'application/json', responseJsonSchema: schema, temperature: 0.2 },
-    }),
-  });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result?.error?.message || 'Gemini AI tahlili vaqtincha ishlamadi.');
+  // Primary model first, then fallbacks when Google reports overload (503) or quota (429).
+  const models = [...new Set([
+    ...(Deno.env.get('GEMINI_MODEL') || 'gemini-3.5-flash').split(','),
+    'gemini-3.5-flash', 'gemini-2.5-flash',
+  ].map((m) => m.trim()).filter(Boolean))];
+  let result: any = null;
+  let lastError = 'Gemini AI tahlili vaqtincha ishlamadi.';
+  for (const model of models) {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+      method: 'POST',
+      headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [
+          { text: prompt },
+          { inlineData: { mimeType: mediaType, data: imageBase64 } },
+        ] }],
+        generationConfig: { responseMimeType: 'application/json', responseJsonSchema: schema, temperature: 0.2 },
+      }),
+      signal: AbortSignal.timeout(45_000),
+    });
+    const body = await response.json().catch(() => ({}));
+    if (response.ok) { result = body; break; }
+    lastError = body?.error?.message || lastError;
+    if (response.status !== 503 && response.status !== 429 && response.status !== 404) break;
+    console.warn('Gemini model unavailable, trying fallback', model, response.status);
+  }
+  if (!result) throw new Error(lastError);
   const text = result?.candidates?.[0]?.content?.parts?.map((part: any) => part.text || '').join('');
   if (typeof text !== 'string' || !text.trim()) throw new Error('Gemini javobini o‘qib bo‘lmadi.');
   return JSON.parse(text);

@@ -36,7 +36,7 @@ The database separates workout and diet video metadata from their public catalog
 ## Gemini AI taom tahlili va dieta videolari
 
 - Dieta sahifasida yoki shaxsiy kabinetda taom rasmini yuklang. AI ko‘ringan taomlarni ajratadi, har bir porsiya gramm miqdorini so‘raydi va aniqlashtirish kerak bo‘lsa savol beradi. Tasdiqlangach, porsiya uchun taxminiy kkal va BJU hisoblab, kunlik balansga yozadi.
-- AI taom tahlili faol PRO obunada kuniga 5 martagacha ishlaydi. Supabase Dashboard → Edge Functions → Secrets bo‘limiga `GEMINI_API_KEY` va ixtiyoriy `GEMINI_MODEL` (`gemini-3.8-flash`) ni server secret sifatida kiriting; keyin `analyze-food` funksiyasini deploy qiling. Gemini kalitini frontend `.env.local` fayliga yoki `VITE_` o‘zgaruvchisiga qo‘ymang.
+- AI taom tahlili faol PRO obunada kuniga 5 martagacha ishlaydi. Supabase Dashboard → Edge Functions → Secrets bo‘limiga `GEMINI_API_KEY` va ixtiyoriy `GEMINI_MODEL` (`gemini-3.5-flash`) ni server secret sifatida kiriting; keyin `analyze-food` funksiyasini deploy qiling. Gemini kalitini frontend `.env.local` fayliga yoki `VITE_` o‘zgaruvchisiga qo‘ymang.
 - Dieta sahifasida videolar alohida **Ozish** va **Massa yig‘ish** rejalari bo‘yicha chiqadi. Admin panelning **Dieta** bo‘limidan reja tanlab, video faylni Cloudflare Stream’ga yuklang, nom va tavsif kiriting, so‘ng rejani nashr qiling. Ommaviy video havolalari qabul qilinmaydi.
 
 ## Telegram bot, payments, and reminders
