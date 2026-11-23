@@ -1,0 +1,6 @@
+.phone-input{position:relative;display:flex;align-items:stretch;gap:8px;margin-top:6px}
+.phone-input select{position:absolute;left:0;top:0;bottom:0;width:112px;opacity:0;cursor:pointer;z-index:2;font-size:16px}
+.phone-input-dial{flex:0 0 112px;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid #2a2d35;border-radius:10px;background:#0f1014;color:#f4f4f5;font-size:15px;white-space:nowrap}
+.phone-input-dial::after{content:"▾";font-size:11px;color:#8b8f98}
+.phone-input select:focus-visible+.phone-input-dial{border-color:#ee5b67;box-shadow:0 0 0 3px #f044521a}
+.phone-input input{flex:1;min-width:0;margin-top:0!important}

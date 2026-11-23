@@ -6,10 +6,10 @@ PUBLIC_DIR="$ROOT_DIR/arniygym"
 ADMIN_DIR="$ROOT_DIR/arniygym-admin"
 
 # Shared source files only. Keep admin-only UI and existing migrations intact.
-for component in BootstrapIcons HomeOverview FoodAnalyzer DietVideos LandingPage News LegalPage ProfileBilling SecureHlsPlayer SupportModals WorkoutLogControls GymMembership P2PSubmitModal Language InstallPWA; do
+for component in BootstrapIcons HomeOverview FoodAnalyzer DietVideos LandingPage News LegalPage ProfileBilling SecureHlsPlayer SupportModals WorkoutLogControls GymMembership P2PSubmitModal Language InstallPWA PhoneInput; do
   cp "$PUBLIC_DIR/src/components/$component.tsx" "$ADMIN_DIR/src/components/$component.tsx"
 done
-cp "$PUBLIC_DIR/src/components/food-analyzer.css" "$PUBLIC_DIR/src/components/news.css" "$ADMIN_DIR/src/components/"
+cp "$PUBLIC_DIR/src/components/food-analyzer.css" "$PUBLIC_DIR/src/components/news.css" "$PUBLIC_DIR/src/components/phone-input.css" "$ADMIN_DIR/src/components/"
 for lib in base dates news push supabase; do
   cp "$PUBLIC_DIR/src/lib/$lib.ts" "$ADMIN_DIR/src/lib/$lib.ts"
 done
