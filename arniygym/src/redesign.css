@@ -621,3 +621,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .members-only-actions button{display:inline-flex;align-items:center;gap:8px}
 .bottom-nav .nav-signup{color:#ff6873}
 @media (max-width:720px){.top-right .signup-button{display:none}.bottom-nav.guest-nav{grid-template-columns:repeat(4,1fr)}.members-only{margin:36px auto 110px;padding:26px 20px}.members-only h2{font-size:24px}}
+
+.admin-tabs button{display:inline-flex;align-items:center;gap:7px}
+.admin-tabs button .bi{color:#8b8f98}
+.admin-tabs button.tab-on .bi{color:#ff6873}

@@ -1,10 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
+import { BASE } from './base';
 
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 export const backendReady = Boolean(url && key);
 export const supabase = backendReady ? createClient(url!, key!, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  // Site and admin are served from the same origin (GitHub Pages sub-paths), so each app keeps its
+  // session under its own storage key; otherwise an admin login would also sign in the member site.
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: `arniygym-auth:${BASE}` }
 }) : null;
 
 export async function invoke<T = any>(name: string, body?: unknown): Promise<T> {

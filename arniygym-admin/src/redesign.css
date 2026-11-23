@@ -618,3 +618,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .automated-payment-row{display:grid;grid-template-columns:minmax(140px,1fr) auto auto auto;align-items:center;gap:14px;padding:12px;border-top:1px solid #ffffff12}.automated-payment-row>div{display:grid;gap:4px}.automated-payment-row small{color:#aeb1b8;font-size:11px}.automated-payment-row strong{white-space:nowrap}.payment-status{font-size:10px;font-weight:800;text-transform:uppercase}.payment-paid{color:#92daa2}.payment-pending{color:#f4c477}.payment-failed,.payment-refunded{color:#f28a91}.automated-payment-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;padding:12px 0}@media(max-width:600px){.automated-payment-row{grid-template-columns:1fr auto}.automated-payment-row>small{grid-column:1/-1}}
 
 .plan-price-secondary{display:block!important;margin-top:4px;font-size:12px!important;color:#9da3ad!important;font-weight:600}
+
+.admin-tabs button{display:inline-flex;align-items:center;gap:7px}
+.admin-tabs button .bi{color:#8b8f98}
+.admin-tabs button.tab-on .bi{color:#ff6873}

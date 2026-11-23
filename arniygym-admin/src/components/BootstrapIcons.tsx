@@ -24,7 +24,11 @@ export const CircleUserRound = makeIcon('person-circle');
 export const Clock3 = makeIcon('clock');
 export const Cookie = makeIcon('cookie');
 export const Droplets = makeIcon('droplet-fill');
-export const Dumbbell = makeIcon('activity');
+export function Dumbbell({ size = 20, strokeWidth: _strokeWidth, color, className = '', style, ...props }: IconProps): ReactElement {
+  return <i {...props} aria-hidden={props['aria-label'] ? undefined : true} className={`bi bi-dumbbell${className ? ` ${className}` : ''}`} style={{ fontSize: size, lineHeight: 1, color, display: 'inline-flex', ...style }}>
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="1" y="9" width="2.6" height="6" rx="1"/><rect x="4.2" y="6" width="3.4" height="12" rx="1.2"/><rect x="7.6" y="10.8" width="8.8" height="2.4" rx=".8"/><rect x="16.4" y="6" width="3.4" height="12" rx="1.2"/><rect x="20.4" y="9" width="2.6" height="6" rx="1"/></svg>
+  </i>;
+}
 export const Flame = makeIcon('fire');
 export const HeartPulse = makeIcon('heart-pulse');
 export const Heart = makeIcon('heart');
@@ -60,6 +64,7 @@ export const Video = makeIcon('camera-video');
 export const WalletCards = makeIcon('wallet2');
 export const X = makeIcon('x-lg');
 export const Megaphone = makeIcon('megaphone');
+export const Tag = makeIcon('tags');
 export const Pin = makeIcon('pin-angle-fill');
 export const BellSlash = makeIcon('bell-slash');
 export const WifiOff = makeIcon('wifi-off');
