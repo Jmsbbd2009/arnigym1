@@ -1,0 +1,60 @@
+[functions.otp-start]
+verify_jwt = false
+[functions.otp-status]
+verify_jwt = false
+[functions.otp-verify]
+verify_jwt = false
+[functions.telegram-contact]
+verify_jwt = false
+[functions.lemonsqueezy-webhook]
+verify_jwt = false
+[functions.p2p-review]
+verify_jwt = false
+[functions.bot-pending-payments]
+verify_jwt = false
+[functions.admin-login-start]
+verify_jwt = false
+[functions.admin-login-status]
+verify_jwt = false
+[functions.admin-login-verify]
+verify_jwt = false
+[functions.bot-pending-admins]
+verify_jwt = false
+[functions.analyze-food]
+verify_jwt = false
+[functions.push-subscribe]
+verify_jwt = false
+[functions.send-reminders]
+verify_jwt = false
+
+[functions.lemonsqueezy-cancel]
+verify_jwt = false
+[functions.account-delete]
+verify_jwt = false
+
+[functions.payment-checkout]
+verify_jwt = false
+[functions.payme-callback]
+verify_jwt = false
+[functions.membership-ticket]
+verify_jwt = false
+[functions.membership-checkin]
+verify_jwt = false
+[functions.freeze-review]
+verify_jwt = false
+[functions.gym-intro-request]
+verify_jwt = false
+[functions.export-user-data]
+verify_jwt = false
+[functions.p2p-submit]
+verify_jwt = false
+[functions.gym-booking]
+verify_jwt = false
+[functions.send-class-reminders]
+verify_jwt = false
+[functions.send-expiry-reminders]
+verify_jwt = false
+[functions.news-image]
+verify_jwt = false
+[functions.news-push]
+verify_jwt = false

@@ -1,0 +1,59 @@
+.food-ai-card,.diet-video-section{border:1px solid #303030;background:#121212;padding:20px;margin:16px 0}
+.food-ai-heading,.diet-video-heading{display:flex;align-items:center;gap:13px}
+.food-ai-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid #733638;color:#ef4444}
+.food-ai-heading>div,.diet-video-heading>div{flex:1}
+.food-ai-heading h3,.diet-video-heading h3{font:600 16px system-ui,-apple-system,'Segoe UI',sans-serif;margin:5px 0}
+.food-ai-heading p,.diet-video-heading p{font-size:12px;line-height:1.6;color:#999;margin:0}
+.food-ai-limit{font:12px ui-monospace,SFMono-Regular,Consolas,monospace;color:#aaa;border:1px solid #333;padding:7px 9px}
+.food-ai-gate,.food-ai-message{display:flex;align-items:center;gap:10px;padding:13px;margin-top:17px;background:#0d0d0d;border:1px solid #303030;color:#aaa;font-size:12px;line-height:1.6}
+.food-ai-gate>svg,.food-ai-message>svg{flex:0 0 auto;color:#ef4444}
+.food-ai-gate>span{flex:1}
+.food-ai-gate .btn-red{padding:9px 12px;font-size:9px}
+.food-ai-upload-row{display:flex;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.food-ai-preview{width:86px;height:74px;object-fit:cover;border:1px solid #383838}
+.food-ai-upload{cursor:pointer;padding:11px 14px;font-size:10px}
+.food-ai-upload input{display:none}
+.food-ai-reset{display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid #383838;color:#bbb;padding:9px 11px;font-size:9px}
+.food-ai-review{margin-top:17px;border-top:1px solid #303030;padding-top:15px}
+.food-ai-subhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.food-ai-subhead>div{display:flex;flex-direction:column;gap:4px}
+.food-ai-subhead b{font-size:11px}.food-ai-subhead small,.food-ai-subhead>span{font-size:12px;color:#898989}
+.food-ai-item{display:grid;grid-template-columns:minmax(150px,1fr) 150px;gap:11px;padding:12px 0;border-bottom:1px solid #262626}
+.food-ai-item-title{display:flex;align-items:center;gap:9px;min-width:0}
+.food-ai-item-title>span{font:12px ui-monospace,SFMono-Regular,Consolas,monospace;color:#ef4444}
+.food-ai-item-title>b{font-size:12px;overflow-wrap:anywhere}
+.food-ai-item-title>small{color:#777;font-size:12px;white-space:nowrap}
+.food-ai-input,.food-ai-clarify{display:flex;flex-direction:column;gap:6px;color:#999;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.3px}
+.food-ai-input input,.food-ai-clarify input{height:36px;width:100%;background:#0b0b0b;border:1px solid #353535;color:#f4f4f4;padding:0 10px;font:12px system-ui,-apple-system,'Segoe UI',sans-serif;outline:none}
+.food-ai-input input:focus,.food-ai-clarify input:focus{border-color:#a44444}
+.food-ai-clarify{grid-column:1/-1}
+.food-ai-clarify>span{display:flex;align-items:flex-start;gap:6px;color:#e4a0a0;font:12px system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5}
+.food-ai-clarify>span svg{flex:0 0 auto;color:#ef4444}
+.food-ai-calculate{margin-top:13px;padding:12px 15px;font-size:10px}
+.food-ai-result{margin-top:18px;border-top:1px solid #303030;padding-top:16px}
+.food-ai-result-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.food-ai-result-head h4{font:600 17px system-ui,-apple-system,'Segoe UI',sans-serif;margin:5px 0}
+.food-ai-total{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;padding:14px;background:#0d0d0d;border:1px solid #292929;margin-top:11px;color:#aaa;font-size:10px}
+.food-ai-total>b{font:700 25px system-ui,-apple-system,'Segoe UI',sans-serif;color:white}.food-ai-total>b small{font:500 12px system-ui,-apple-system,'Segoe UI',sans-serif;color:#999}
+.food-ai-item-results{margin-top:8px}
+.food-ai-item-results>div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #282828;font-size:12px;color:#aaa}
+.food-ai-item-results b{color:#eee;white-space:nowrap}
+.food-ai-disclaimer{font-size:12px;line-height:1.6;color:#888;margin:12px 0}
+.food-ai-saved{display:flex;align-items:center;gap:7px;color:#e4aaaa;font-size:9px}
+.food-ai-compact{margin:14px 0}
+.diet-video-section{margin:17px 0 44px}
+.diet-video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:16px}
+.diet-video-card{border:1px solid #2a2a2a;background:#0d0d0d;overflow:hidden}
+.diet-video-card iframe,.diet-video-card video{display:block;width:100%;aspect-ratio:16/9;border:0;background:#080808}
+.diet-video-card>div{padding:12px}
+.diet-video-card b{font-size:11px}.diet-video-card p{font-size:12px;line-height:1.6;color:#999;margin:6px 0 0}
+.diet-video-empty{display:flex;align-items:center;gap:11px;border:1px dashed #393939;padding:15px;margin-top:15px;color:#aaa}
+.diet-video-empty>span{width:32px;height:32px;display:grid;place-items:center;border:1px solid #733638;color:#ef4444;flex:0 0 auto}
+.diet-video-empty>div{display:flex;flex-direction:column;gap:5px}.diet-video-empty b{font-size:10px}.diet-video-empty small{font-size:12px;line-height:1.6;color:#888}
+@media(max-width:600px){.food-ai-card,.diet-video-section{padding:14px}.food-ai-heading{align-items:flex-start}.food-ai-limit{font-size:12px;padding:6px}.food-ai-heading h3,.diet-video-heading h3{font-size:13px}.food-ai-heading p,.diet-video-heading p{font-size:9px}.food-ai-gate{align-items:flex-start;flex-wrap:wrap}.food-ai-gate>span{min-width:calc(100% - 32px)}.food-ai-gate .btn-red{margin-left:26px}.food-ai-item{grid-template-columns:1fr}.food-ai-input{max-width:170px}.food-ai-item-title{flex-wrap:wrap}.food-ai-result-head{align-items:flex-start}.food-ai-total{gap:10px}.food-ai-total>b{width:100%}}
+.food-ai-consent{display:flex;gap:12px;align-items:flex-start;margin:18px 0;padding:14px;border:1px solid #ffffff20;border-radius:12px;background:#111318;color:#dedfe4;font-size:14px;line-height:1.55}
+.food-ai-consent input{width:18px;height:18px;accent-color:#ef4444;flex:0 0 auto;margin-top:2px}
+.auth-consent{display:flex;gap:11px;align-items:flex-start;color:#dedfe4;font-size:14px;line-height:1.55}
+.auth-consent input{width:18px;height:18px;accent-color:#ef4444;flex:0 0 auto;margin-top:2px}
+.auth-consent a{color:#ff737d;text-decoration:underline;text-underline-offset:2px}
+.turnstile-box{display:flex;justify-content:center;min-height:65px;margin:12px 0}

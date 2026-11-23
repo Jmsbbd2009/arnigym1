@@ -1,0 +1,613 @@
+/* ArniyGym visual refresh — performance club */
+:root{
+  color-scheme:dark;
+  --red:#ef4444;
+  --red2:#c92f3c;
+  --ink:#09090b;
+  --panel:#121215;
+  --panel-2:#191c22;
+  --panel-3:#20242b;
+  --line:#27272a;
+  --text:#fafafa;
+  --muted:#a0a4ad;
+  --soft:#c5c8ce;
+  --green:#42c887;
+  --radius:20px;
+  --shadow:0 24px 70px #0008;
+}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 14% 0%,#1b1014 0,transparent 34rem),
+    radial-gradient(ellipse at 95% 26%,#13171e 0,transparent 38rem),
+    var(--ink);
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.14;
+  background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+  background-size:54px 54px;
+}
+::selection{background:#f04452;color:#fff}
+button,input,select,textarea{font:inherit}
+button,a{transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #ff6470;outline-offset:3px}
+.bi{display:inline-block;flex:0 0 auto;line-height:1;vertical-align:-.12em;font-style:normal}
+.topbar{
+  height:78px;padding:0 max(4.5vw,24px);gap:24px;
+  border-bottom:1px solid #ffffff12;background:#0b0c0fe8;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 8px 28px #0002;
+}
+.brand{gap:11px;padding:0}
+.logo-mark{width:42px;height:42px;padding:7px;border:1px solid #ff929b55;border-radius:14px;background:linear-gradient(145deg,#ff5964,#bd1f31);box-shadow:0 8px 24px #e6364840}
+.logo-mark svg{width:100%;height:100%}
+.brand-word{font-size:21px;letter-spacing:-1.2px}
+.brand-word b{font-weight:800}.brand-word em{color:#ff626e}
+.top-nav{gap:4px;padding:5px;border:1px solid #ffffff12;border-radius:999px;background:#15171b}
+.top-nav button{padding:10px 15px;border-radius:999px;color:#b4b6bd;font-size:13px;font-weight:600}
+.top-nav button:hover{color:#fff;background:#ffffff0c}
+.top-nav button.active{color:#fff;background:#292d34;box-shadow:inset 0 0 0 1px #ffffff0b}
+.top-nav button.active:after{display:none}
+.top-right{gap:9px}
+.login-button,.mobile-menu{min-height:44px;border-radius:13px;border:1px solid #ffffff18;background:#181a20;padding:0 16px;font-size:13px;font-weight:700}
+.login-button:hover,.mobile-menu:hover{background:#24272e;border-color:#ffffff32}
+.login-button .bi{color:#ff6873}
+.mobile-menu{display:none}
+.shell{width:min(1200px,92%);margin-inline:auto}
+.site-foot{width:min(1200px,92%);padding:24px 0 38px;color:#8f939c;font-size:12px;letter-spacing:.7px;border-color:#ffffff13}
+.site-foot button{font-size:12px}
+.site-foot .bi{color:var(--red)}
+.eyebrow{gap:9px;color:#ff606c;font-size:12px;letter-spacing:1.6px;font-weight:700}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 16px #f0445299}
+.eyebrow.muted{color:#9da2ab}
+.btn-red,.btn-outline,.btn-quiet,.link-arrow{
+  min-height:46px;border-radius:13px;font-size:14px;font-weight:700;
+}
+.btn-red{padding:0 20px;background:linear-gradient(135deg,#ff5964,#d92f40);box-shadow:0 10px 28px #e5384930}
+.btn-red:hover{background:linear-gradient(135deg,#ff7079,#e33c4d);box-shadow:0 14px 30px #e5384945;transform:translateY(-2px)}
+.btn-outline{padding:0 18px;border-color:#3a3f48;background:#14161b;color:#f0f1f3}
+.btn-outline:hover{background:#20232a;border-color:#686d77;transform:translateY(-1px)}
+.btn-quiet{color:#d1d3d8}
+.btn-quiet:hover{color:#fff}
+.link-arrow{color:#e1e3e8}
+.link-arrow .bi{color:var(--red)}
+.public-landing{width:min(1320px,92%);margin:0 auto}
+.landing-hero{
+  min-height:680px;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,74px);
+  align-items:center;border:0;padding:20px 0 34px;overflow:visible;
+}
+.landing-copy{padding:52px 0 74px}
+.landing-copy h1{
+  max-width:700px;margin:25px 0 20px;color:#fafafa;
+  font:800 clamp(58px,7vw,96px)/.94 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.075em;
+}
+.landing-copy h1 span{color:#ff5965;text-shadow:0 12px 50px #f0445230}
+.landing-copy>p{max-width:490px;color:#b3b6bd;font-size:17px;line-height:1.8}
+.landing-actions{gap:14px;margin-top:31px}
+.landing-stats{gap:0;margin-top:48px;padding-top:23px;border-top:1px solid #ffffff17}
+.landing-stats>span{min-width:128px;padding:0 22px;border-right:1px solid #ffffff17}
+.landing-stats>span:first-child{padding-left:0}
+.landing-stats>span:last-child{border-right:0}
+.landing-stats .bi{font-size:20px;color:#ff5d68;margin-bottom:8px}
+.landing-stats b{font:800 22px system-ui,-apple-system,'Segoe UI',sans-serif}
+.landing-stats small{font:600 12px ui-monospace,SFMono-Regular,Consolas,monospace;color:#999ea8;letter-spacing:.75px}
+.landing-photo-wrap{
+  min-height:590px;height:min(72vh,760px);margin:0;align-self:center;
+  border:1px solid #ffffff24;border-radius:30px;background:#17191d;
+  box-shadow:var(--shadow);isolation:isolate;
+}
+.landing-photo{object-position:center 24%;filter:saturate(.88) contrast(1.06)}
+.landing-photo-shade{
+  background:linear-gradient(180deg,#08090d00 36%,#08090de8 100%),
+    linear-gradient(115deg,#090a0d66 0%,transparent 52%),
+    linear-gradient(90deg,#090a0d22,transparent 60%);
+}
+.landing-photo-wrap::after{
+  content:"";position:absolute;inset:12px;border:1px solid #ffffff20;border-radius:22px;pointer-events:none
+}
+.photo-tag{left:30px;bottom:30px;column-gap:11px;font-size:12px;letter-spacing:1.3px}
+.photo-tag small{grid-column:2;color:#c4c6cc;font-size:12px;letter-spacing:1px}
+.photo-stamp{top:28px;right:28px;padding:13px 16px;border-radius:13px;background:#090a0dd9;border-color:#ffffff30;font-size:12px}
+.photo-index{right:30px;bottom:30px;left:auto;color:#d3d4d8;font:600 12px ui-monospace,SFMono-Regular,Consolas,monospace}
+.landing-scroll{bottom:9px;font-size:12px;letter-spacing:1.2px}
+.landing-feature-row{grid-template-columns:1fr .78fr;gap:clamp(34px,7vw,94px);padding:95px 0;border-color:#ffffff14}
+.landing-feature-copy h2,.landing-plan-band h2,.landing-contact h2{
+  margin:14px 0 19px;font:800 clamp(34px,4vw,54px)/1.05 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.055em
+}
+.landing-feature-copy h2 i,.landing-contact h2 i{color:#ff5d68}
+.landing-feature-copy p,.landing-plan-band p{max-width:600px;color:#aeb2ba;font-size:16px;line-height:1.8}
+.landing-benefits{gap:12px;margin:25px 0 28px}
+.landing-benefits span{font-size:14px;color:#dadce0}
+.landing-benefits .bi{color:#ff626e;font-size:18px}
+.coach-portrait-card{height:390px;border:1px solid #ffffff20;border-radius:24px;box-shadow:var(--shadow)}
+.coach-portrait-card img{filter:saturate(.88)}
+.coach-portrait-card>div{padding:18px 20px;background:linear-gradient(transparent,#08090deb)}
+.coach-portrait-card small{font-size:12px;color:#ff737d;letter-spacing:1.4px}
+.coach-portrait-card b{font-size:22px}.coach-portrait-card span{font-size:13px;color:#d2d4d9}
+.news-section{padding:68px 0 38px}
+.news-heading{margin-bottom:22px}
+.news-heading h2,.section-heading h2{font:750 clamp(26px,3vw,38px)/1.1 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.045em}
+.news-grid{gap:16px}
+.news-card{overflow:hidden;border:1px solid #ffffff14;border-radius:20px;background:linear-gradient(145deg,#191c22,#101216);box-shadow:0 16px 40px #0003}
+.news-card:hover{transform:translateY(-4px);border-color:#ef59655c;box-shadow:0 22px 44px #0005}
+.news-cover{min-height:190px}
+.news-card-body{padding:20px}
+.news-card-body h3{font-size:19px;line-height:1.35}
+.news-card-body p{font-size:14px;line-height:1.7;color:#b6bac2}
+.news-meta{font-size:12px;color:#9da2ab}
+.news-empty{border:1px dashed #424751;border-radius:18px;background:#14161b;padding:22px}
+.news-empty p,.news-empty small{font-size:14px;color:#aeb2ba}
+.landing-plan-band{
+  position:relative;overflow:hidden;margin:55px 0;padding:clamp(28px,5vw,62px);
+  border:1px solid #ff59653d;border-radius:26px;
+  background:radial-gradient(ellipse at 87% 10%,#d62d3a44,transparent 38%),
+    linear-gradient(120deg,#201317,#15161b 62%,#171114);
+  box-shadow:0 28px 70px #0004;
+}
+.landing-plan-band::after{content:"";position:absolute;width:280px;height:280px;right:-70px;bottom:-200px;border:1px solid #ff687333;border-radius:50%;box-shadow:0 0 0 28px #ff68730b,0 0 0 56px #ff687307}
+.landing-plan-actions{position:relative;z-index:1;min-width:240px}
+.landing-contact{gap:50px;padding:44px 0 85px}
+.contact-links{gap:10px}
+.contact-links>a{min-height:76px;padding:14px 16px;border:1px solid #ffffff14;border-radius:16px;background:#121419}
+.contact-links>a:hover{background:#1c1f25;border-color:#ffffff30;transform:translateX(3px)}
+.contact-links .bi{font-size:20px;color:#ff6470}
+.contact-links b{font-size:15px}.contact-links small{font-size:13px;color:#a7abb3}
+.contact-letter{border-radius:50%;background:#22252c;color:#fff;font-size:12px}
+.member-welcome{align-items:flex-end;padding:40px 0 20px}
+.member-welcome h1{margin:12px 0 7px;font:800 clamp(32px,4vw,48px)/1.05 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.06em}
+.member-welcome p{font-size:15px;color:#aeb2ba}
+.member-status{padding:9px 14px;border:1px solid #ffffff1b;border-radius:999px;background:#14161b;font-size:12px;font-weight:700;letter-spacing:.6px}
+.member-status span{width:8px;height:8px;border-radius:50%;background:#70757f}
+.member-active{border-color:#1d744f;background:#102219;color:#b9f2d5}
+.member-active span{background:var(--green);box-shadow:0 0 12px #42c88788}
+.calorie-dashboard{
+  padding:clamp(20px,3vw,32px);border:1px solid #ffffff17;border-radius:24px;
+  background:radial-gradient(ellipse at 92% 0%,#28202a 0,transparent 34%),
+    linear-gradient(135deg,#17191f,#101216 70%);box-shadow:0 18px 50px #0003
+}
+.dashboard-head h2{margin:8px 0 0;font:700 23px system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.04em}
+.dashboard-grid{grid-template-columns:190px minmax(180px,.8fr) minmax(320px,1.3fr);gap:25px;margin-top:26px}
+.calorie-ring{width:174px;padding:9px;background:conic-gradient(#ff5662 var(--ring),#2b2e35 0);box-shadow:0 0 30px #ed3d4a25}
+.calorie-ring>div{width:100%;height:100%;align-content:center;gap:5px;border-radius:50%;background:#15171c;box-shadow:inset 0 0 0 1px #ffffff12}
+.calorie-ring small{font-size:12px;letter-spacing:1.3px;color:#aeb2bb}
+.calorie-ring b{font:800 31px system-ui,-apple-system,'Segoe UI',sans-serif}
+.calorie-ring span{font-size:13px;color:#aeb2bb}
+.calorie-stats{gap:12px}
+.calorie-stats>span{padding:14px 15px;border:1px solid #ffffff11;border-radius:14px;background:#ffffff05}
+.calorie-stats small,.activity-cards small{font-size:12px;letter-spacing:.5px;color:#a6aab2}
+.calorie-stats b{font-size:16px}
+.calorie-goal-form{grid-column:1/-1;display:grid;gap:8px;padding:13px 15px;border:1px solid #ffffff11;border-radius:14px;background:#ffffff05;color:#aeb2ba;font-size:14px}
+.calorie-goal-form>div{display:flex;gap:8px}
+.calorie-goal-form input{width:min(180px,65%);min-height:40px;border:1px solid #353942;border-radius:10px;background:#191c22;color:#fff;padding:0 10px;font-size:16px}
+.calorie-goal-form button{min-height:40px;padding:0 14px;border:0;border-radius:10px;background:var(--red);color:#fff;font-size:14px}
+.chart-disclaimer{display:block;margin-top:8px;color:#aaa;font-size:12px;line-height:1.5}
+.install-steps{padding-left:22px;color:#ddd;font-size:15px;line-height:1.7}
+.install-steps li+li{margin-top:7px}
+.install-note{font-size:14px;line-height:1.6;color:#bbb}
+.exercise-tools{display:flex;gap:10px;margin:14px 0;align-items:center}
+.exercise-tools label{display:flex;align-items:center;gap:9px;flex:1;min-width:0;min-height:44px;padding:0 13px;border:1px solid #ffffff18;border-radius:13px;background:#111319;color:#aeb3bd}
+.exercise-tools input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#fff;font-size:15px}
+.exercise-tools>button,.favorite-button,.workout-journal-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:0 13px;border:1px solid #343842;border-radius:12px;background:#181a20;color:#ddd;font-size:14px}
+.exercise-tools>button.favorite-filter-active,.favorite-button.is-favorite{border-color:#d84d5a;background:#32171c;color:#ff6873}
+.favorite-button{min-width:42px;padding:0;color:#aeb3bd}
+.workout-journal{margin:-7px 0 9px 35px}
+.workout-journal-toggle{min-height:36px;padding:0 11px;font-size:13px}
+.workout-journal-panel{margin-top:8px;padding:14px;border:1px solid #ffffff12;border-radius:14px;background:#101217}
+.workout-journal-form{display:flex;flex-wrap:wrap;align-items:end;gap:9px}
+.workout-journal-form label{display:grid;gap:5px;color:#aeb3bd;font-size:13px}
+.workout-journal-form input{width:95px;min-height:40px;border:1px solid #353942;border-radius:10px;background:#191c22;color:#fff;padding:0 10px;font-size:15px}
+.workout-journal-form .btn-red{min-height:40px}
+.workout-journal-history{display:grid;gap:6px;margin-top:12px;color:#c7cad0;font-size:13px}
+.workout-journal-history>b{display:flex;align-items:center;gap:6px;color:#fff}
+.workout-journal-empty,.workout-journal-private{display:flex;align-items:center;gap:6px;margin:10px 0 0;color:#9da2ab;font-size:13px}
+.workout-journal-private{color:#7fbd9c}
+.calorie-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.calorie-goal-form{grid-column:1/-1}
+@media(max-width:560px){.exercise-tools{align-items:stretch;flex-direction:column}.exercise-tools>button{width:100%}.workout-journal{margin-left:0}.workout-journal-form label{flex:1;min-width:90px}.workout-journal-form input{width:100%}.calorie-stats{grid-template-columns:1fr 1fr}.calorie-goal-form{grid-column:1/-1}}
+.activity-cards{gap:10px;margin-top:0}
+.activity-cards>label,.weight-mini{min-height:112px;padding:15px;border:1px solid #ffffff13;border-radius:15px;background:#0f1115}
+.activity-cards label{font-size:12px;color:#aeb2ba}
+.activity-cards input{min-width:0;height:40px;border:1px solid #353942;border-radius:10px;background:#191c22;color:#fff;padding:0 10px;font-size:14px}
+.activity-cards label>div button{width:40px;border-radius:10px;background:var(--red);color:white}
+.weight-mini .bi{font-size:20px;color:#ff606c}
+.food-ai-heading{gap:14px}
+.food-ai-icon,.scanner-icon,.calc-icon{width:44px;height:44px;border-radius:14px;background:#29171b;border-color:#67333c;color:#ff6873}
+.food-ai-icon .bi,.scanner-icon .bi{font-size:20px}
+.food-ai h2,.food-ai h3{letter-spacing:-.04em}
+.food-ai-result,.food-ai-review,.food-ai-gate,.food-ai-preview,.food-ai-saved{
+  border-radius:18px;border-color:#ffffff18;background:linear-gradient(145deg,#191b21,#111318)
+}
+.food-ai-item,.food-ai-clarify,.food-ai-input{border-color:#ffffff16;border-radius:14px;background:#101216}
+.food-ai-item-title b,.food-ai-total b{font-size:16px}
+.food-ai input,.food-ai textarea,.food-ai select,.field-label input,.calc-fields input,.calc-fields select{
+  min-height:46px;border-radius:11px;border:1px solid #363a43;background:#0e1014;color:#f7f7f8;font-size:15px
+}
+.food-ai input:focus,.food-ai textarea:focus,.food-ai select:focus,.field-label input:focus,.calc-fields input:focus,.calc-fields select:focus{border-color:#ee5b67;box-shadow:0 0 0 3px #f044521a}
+.food-ai-disclaimer,.food-ai-subhead,.food-ai-limit{font-size:13px;line-height:1.65}
+.page-intro{padding:62px 0 30px;border-color:#ffffff13}
+.page-intro h1{font-size:clamp(42px,6vw,68px);letter-spacing:-.065em}
+.page-intro>p{font-size:16px;line-height:1.7}
+.goal-switch{gap:9px;padding:22px 0}
+.goal-switch button{min-height:46px;padding:0 18px;border-radius:12px;border-color:#ffffff18;background:#15171c;color:#bfc2c9;font-size:14px}
+.goal-switch button.chosen{border-color:#ff626b;background:#2a1519;color:#fff;box-shadow:0 8px 24px #c8313e20}
+.calc-card,.meal-card,.diet-tips,.diet-video-section{
+  border:1px solid #ffffff17;border-radius:20px;background:linear-gradient(145deg,#181a20,#111318);box-shadow:0 16px 38px #0002
+}
+.calc-card{padding:clamp(18px,3vw,28px)}
+.calc-title h3{font-size:21px}
+.calc-fields{gap:13px}
+.calc-fields label,.field-label{font-size:13px;color:#b8bbc2}
+.calc-fields input,.calc-fields select,.field-label input{height:46px;padding:0 13px}
+.calc-result{border-radius:16px;background:#0d0f12}
+.calc-result small,.bju small{font-size:12px}
+.calc-result>div:first-child>b{font-size:30px}
+.bju b{font-size:18px}
+.meal-layout{gap:16px}
+.meal-card,.diet-tips{padding:22px}
+.meal-head h3,.diet-tips h3{font-size:21px}
+.kcal-chip{font-size:12px;border-radius:999px}
+.meal-row{min-height:68px}
+.meal-row time,.meal-n{font-size:12px}
+.meal-text b{font-size:14px}.meal-text small{font-size:12px}
+.diet-video-section{padding:24px;margin:24px 0 76px}
+.diet-video-heading h3{font-size:22px}
+.diet-video-heading p,.diet-video-description{font-size:14px;line-height:1.7;color:#b1b4bc}
+.diet-video-grid{gap:14px}
+.diet-video-card{overflow:hidden;border:1px solid #ffffff17;border-radius:18px;background:#17191e}
+.diet-video-card-head{padding:15px}
+.diet-video-card-head b{font-size:15px}
+.diet-video-card-head p{font-size:13px;line-height:1.6}
+.workout-layout{grid-template-columns:220px minmax(0,1fr);gap:22px;padding-top:28px}
+.muscle-menu{gap:7px}
+.muscle-menu button{min-height:54px;padding:0 14px;border:1px solid transparent;border-radius:13px;background:#121419;color:#b8bbc2;text-align:left;font-size:14px}
+.muscle-menu button:hover{background:#1d2026;color:#fff}
+.muscle-menu button.muscle-active{border-color:#69323a;background:linear-gradient(100deg,#34171c,#1a161a);color:#fff;box-shadow:inset 3px 0 #f04452}
+.workout-detail{min-width:0}
+.workout-cover{min-height:250px;height:auto;padding:25px;border:1px solid #ffffff18;border-radius:22px;background:radial-gradient(ellipse at 80% 30%,#5a242b 0,#26161b 28%,#15171c 75%)}
+.cover-label{font-size:12px;letter-spacing:1.2px}
+.cover-symbol{font-size:96px;color:#ffffff0f}
+.workout-cover h2{font:800 34px system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.05em}
+.workout-cover p{max-width:480px;font-size:14px;color:#c5c7cd}
+.rest-card{margin-top:15px;padding:18px;border:1px solid #ffffff15;border-radius:18px;background:#15171c}
+.rest-label{gap:12px}.rest-label .bi{font-size:20px;color:#ff6570}
+.rest-label b{font-size:15px}.rest-label small{font-size:12px;color:#a8abb2}
+.rest-choices{gap:7px}
+.rest-choices button{min-width:58px;min-height:40px;border:1px solid #ffffff17;border-radius:11px;background:#20232a;color:#c4c7ce;font-size:13px}
+.rest-choices button.rest-selected{border-color:#f04452;background:#39191e;color:#fff}
+.timer-readout{font:700 24px ui-monospace,SFMono-Regular,Consolas,monospace;color:#fff}
+.timer-control{min-height:42px;padding:0 14px;border:0;border-radius:11px;background:#f04452;color:#fff;font-size:13px;font-weight:700}
+.exercise-title{margin:27px 0 12px}
+.exercise-title h3{font-size:21px}
+.exercise-item{min-height:78px;padding:14px;border:1px solid #ffffff12;border-radius:15px;background:#13151a;margin:8px 0}
+.exercise-item>small{font-size:12px;color:#ff6873}
+.exercise-item b{font-size:15px}
+.exercise-item em,.no-video{font-size:12px;color:#a4a8b0}
+.watch-btn{min-height:40px;padding:0 12px;border-radius:11px;background:#f04452;font-size:12px;font-weight:700}
+.stream-note{margin-top:14px;padding:13px;border:1px solid #ffffff12;border-radius:12px;background:#101216;color:#aeb2b8;font-size:12px}
+.stream-note .bi{color:#ff6670}
+.plans-grid{gap:15px;padding:28px 0}
+.plan-card{padding:24px;border:1px solid #ffffff18;border-radius:20px;background:linear-gradient(155deg,#191b21,#101216);box-shadow:0 16px 40px #0003}
+.plan-featured{border-color:#f0445266;background:radial-gradient(ellipse at 90% 0,#4a1b23 0,transparent 45%),linear-gradient(155deg,#21171b,#111318);box-shadow:0 18px 44px #d92f4022}
+.plan-name{font-size:14px;letter-spacing:.5px}
+.plan-name span{border-radius:999px;background:#f04452;padding:6px 9px;font-size:12px}
+.plan-price{font:800 36px system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.05em}
+.plan-price small{font:500 13px system-ui,-apple-system,'Segoe UI',sans-serif;color:#aeb2ba}
+.plan-card p,.plan-card li{font-size:14px;line-height:1.6;color:#b7bac2}
+.plan-card ul{gap:12px}
+.plan-card li .bi{color:#ff6570}
+.about-panels{gap:14px}
+.about-panels>article,.about-links,.about-accent{border:1px solid #ffffff17;border-radius:18px;background:#15171c}
+.modal-overlay{background:#030407d9;backdrop-filter:blur(10px)}
+.modal-card{width:min(560px,100%);padding:30px;border:1px solid #ffffff20;border-radius:24px;background:linear-gradient(145deg,#1c1f26,#101216);box-shadow:0 30px 90px #0009}
+.modal-card h2{font-size:27px;letter-spacing:-.04em}
+.modal-x{width:40px;height:40px;border:1px solid #ffffff16;border-radius:12px;background:#24272e}
+.auth-badge{width:52px;height:52px;border:1px solid #80424a;border-radius:16px;background:#2a171c;color:#ff6570}
+.auth-badge .bi{font-size:24px}
+.field-label{font-size:14px}
+.field-label input{font-size:16px}
+.form-error{font-size:13px}
+.toast{z-index:30;right:20px;bottom:90px;padding:14px 18px;border:1px solid #ffffff20;border-radius:14px;background:#1a1d23;box-shadow:var(--shadow);font-size:14px}
+.toast .bi{color:#ff6873}
+.cookie-consent{border:1px solid #ffffff20;border-radius:20px;background:#17191feF;box-shadow:0 24px 70px #0009;backdrop-filter:blur(20px)}
+.cookie-copy p{font-size:14px;line-height:1.6}
+.cookie-icon{color:#ff6470}
+.cookie-actions .btn-red,.cookie-necessary{min-height:42px;border-radius:11px;font-size:13px}
+.install-call{
+  right:22px;bottom:24px;padding:13px 16px;border:1px solid #ff5d6a55;border-radius:16px;
+  background:linear-gradient(130deg,#28161b,#17191e);box-shadow:0 18px 40px #0007;color:#fff
+}
+.install-call .bi{font-size:19px;color:#ff6470}
+.install-call b{font-size:14px}.install-call small{font-size:12px;color:#c2c5cb}
+.secure-player{border:1px solid #ffffff18;border-radius:18px;overflow:hidden;background:#050608}
+.player-shield,.player-state{border-radius:11px;background:#101216d9}
+.player-watermark{font:600 12px ui-monospace,SFMono-Regular,Consolas,monospace;color:#fff;text-shadow:0 1px 5px #000,0 0 12px #000}
+.admin-gate{max-width:560px;margin:56px auto;padding:40px;border:1px solid #ffffff18;border-radius:26px;background:radial-gradient(ellipse at 90% 0,#412027 0,transparent 45%),#121419;box-shadow:var(--shadow)}
+.admin-gate h1{font-size:clamp(44px,6vw,68px)}
+.admin-gate p{font-size:16px;line-height:1.7;color:#b5b8bf}
+.admin-shell{width:min(1240px,92%);padding:42px 0 92px}
+.admin-top{padding:22px 0 25px;border-bottom:1px solid #ffffff15}
+.admin-top h1{margin:10px 0 0;font-size:clamp(34px,5vw,52px);letter-spacing:-.06em}
+.admin-security{display:flex;align-items:center;gap:10px;margin:18px 0;padding:14px 16px;border:1px solid #1e704e;border-radius:14px;background:#10221a;color:#b7eed2;font-size:13px}
+.admin-security .bi{color:#48cb8c}
+.admin-tabs{
+  gap:7px;margin:18px 0 24px;padding:6px;overflow-x:auto;border:1px solid #ffffff14;border-radius:16px;background:#111318;
+  scrollbar-width:thin;scrollbar-color:#51545b transparent
+}
+.admin-tabs button{flex:0 0 auto;min-height:42px;padding:0 15px;border:1px solid transparent;border-radius:11px;background:transparent;color:#b7bac2;font-size:13px;font-weight:700}
+.admin-tabs button:hover{background:#ffffff08;color:#fff}
+.admin-tabs button.tab-on{border-color:#633039;background:#32171d;color:#fff;box-shadow:inset 0 -2px #f04452}
+.admin-table{
+  margin:16px 0;padding:22px;border:1px solid #ffffff16;border-radius:20px;
+  background:linear-gradient(145deg,#17191f,#111318);box-shadow:0 14px 38px #0002
+}
+.admin-table-top{align-items:center;margin-bottom:20px}
+.admin-table-top h3{margin:7px 0 0;font:700 22px system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.04em}
+.admin-table-top>span{padding:8px 11px;border:1px solid #ffffff16;border-radius:999px;background:#0f1115;color:#c2c5cb;font-size:12px}
+.admin-add,.admin-form-grid{gap:11px}
+.admin-add input,.admin-add select,.admin-form-grid input,.admin-form-grid select,.admin-form-grid textarea,
+.admin-table input,.admin-table select,.admin-table textarea,.json-editor{
+  min-height:44px;padding:10px 13px;border:1px solid #363a43;border-radius:11px;background:#0c0e12;color:#f5f6f7;font-size:14px
+}
+.admin-table textarea,.admin-form-grid textarea,.json-editor{min-height:120px;line-height:1.6}
+.admin-add input:focus,.admin-add select:focus,.admin-form-grid input:focus,.admin-form-grid select:focus,.admin-form-grid textarea:focus,
+.admin-table input:focus,.admin-table select:focus,.admin-table textarea:focus{border-color:#f04452;box-shadow:0 0 0 3px #f0445219}
+.admin-line,.admin-news-row,.news-admin-row,.admin-video-list-title,.admin-upload-row{
+  border-color:#ffffff15;background:#111318
+}
+.admin-line{min-height:62px;border-radius:12px;padding:12px}
+.admin-line .bi,.review-actions .bi{color:#ff6771}
+.admin-stats{gap:12px}
+.admin-stats>span{padding:16px;border:1px solid #ffffff14;border-radius:14px;background:#101216}
+.admin-stats small{font-size:12px;color:#a5a9b1}.admin-stats b{font-size:22px}
+.admin-upload,.admin-placeholder,.payment-info,.p2p-box{border:1px solid #ffffff16;border-radius:16px;background:#101216}
+.admin-video-empty{border-radius:14px;background:#15171d}
+.admin-news-form{gap:12px;padding:18px;border:1px solid #ffffff14;border-radius:16px;background:#101216}
+.admin-news-form label,.admin-form-grid label{font-size:13px;color:#bfc2c9}
+.review-actions button,.icon-danger{border-radius:10px}
+@media(max-width:1050px){
+  .landing-hero{min-height:610px;gap:28px}
+  .landing-photo-wrap{min-height:500px}
+  .dashboard-grid{grid-template-columns:180px 1fr}
+  .activity-cards{grid-column:1/-1}
+  .activity-cards>label,.weight-mini{min-height:100px}
+  .workout-layout{grid-template-columns:190px minmax(0,1fr)}
+}
+@media(max-width:820px){
+  .topbar{padding-inline:22px}
+  .top-nav{gap:1px}
+  .top-nav button{padding-inline:10px;font-size:12px}
+  .landing-hero{grid-template-columns:1fr .9fr;min-height:560px}
+  .landing-photo-wrap{min-height:440px;height:58vh}
+  .landing-copy h1{font-size:clamp(52px,8vw,76px)}
+  .landing-stats>span{padding-inline:14px}
+  .landing-feature-row{gap:35px}
+  .workout-layout{grid-template-columns:1fr}
+  .muscle-menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .muscle-menu button{min-width:0}
+  .group-grid{grid-template-columns:repeat(3,1fr)}
+  .plans-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  html{scroll-padding-top:70px}
+  .topbar{height:66px;padding:0 16px}
+  .logo-mark{width:38px;height:38px;border-radius:12px}
+  .brand-word{font-size:19px}
+  .top-nav{display:none}
+  .mobile-menu{display:grid;width:42px;min-width:42px;min-height:42px;padding:0;place-items:center}
+  .login-button{min-height:42px;padding:0 12px}
+  .login-button span{font-size:12px}
+  .shell,.public-landing{width:calc(100% - 32px)}
+  .landing-hero{display:flex;flex-direction:column;align-items:stretch;gap:22px;min-height:0;padding:46px 0 30px}
+  .landing-copy{padding:0}
+  .landing-copy h1{font-size:clamp(49px,13vw,72px);margin:19px 0 14px;letter-spacing:-.07em}
+  .landing-copy>p{font-size:15px;line-height:1.65}
+  .landing-actions{gap:9px;flex-wrap:wrap;margin-top:22px}
+  .landing-actions .btn-red,.landing-actions .btn-quiet{min-height:44px;font-size:13px}
+  .landing-stats{margin-top:27px;padding-top:18px}
+  .landing-stats>span{min-width:0;flex:1;padding:0 9px}
+  .landing-stats b{font-size:18px}.landing-stats small{font-size:12px;line-height:1.4}
+  .landing-photo-wrap{height:460px;min-height:0;margin:0;border-radius:22px}
+  .photo-tag{left:20px;bottom:20px;font-size:12px}
+  .photo-stamp{top:18px;right:18px;font-size:12px}
+  .photo-index{right:20px;bottom:20px}
+  .landing-scroll{display:none}
+  .landing-feature-row{grid-template-columns:1fr;gap:24px;padding:56px 0}
+  .landing-feature-copy h2,.landing-plan-band h2,.landing-contact h2{font-size:34px}
+  .landing-feature-copy p,.landing-plan-band p{font-size:15px}
+  .coach-portrait-card{height:360px}
+  .news-section{padding:46px 0 25px}
+  .news-grid{grid-template-columns:1fr;gap:12px}
+  .news-cover{min-height:210px}
+  .landing-plan-band{display:block;margin:38px 0;padding:24px;border-radius:20px}
+  .landing-plan-actions{display:grid;gap:10px;margin-top:20px}
+  .landing-contact{grid-template-columns:1fr;gap:20px;padding:22px 0 60px}
+  .member-welcome{align-items:flex-start;flex-direction:column;gap:15px;padding:28px 0 16px}
+  .member-welcome h1{font-size:34px}
+  .member-welcome p{font-size:14px}
+  .calorie-dashboard{padding:18px;border-radius:20px}
+  .dashboard-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .calorie-ring{width:min(152px,100%);grid-row:span 2;justify-self:center}
+  .calorie-stats{gap:7px}
+  .calorie-stats>span{padding:11px;border-radius:12px}
+  .calorie-stats small,.activity-cards small{font-size:12px}
+  .calorie-stats b{font-size:14px}
+  .activity-cards{grid-column:1/-1;grid-template-columns:1fr 1fr}
+  .weight-mini{grid-column:1/-1;min-height:78px}
+  .food-ai{padding:18px!important;border-radius:19px!important}
+  .food-ai-heading{align-items:flex-start}
+  .food-ai-heading h2,.food-ai-heading h3{font-size:20px}
+  .page-intro{padding:43px 0 23px}
+  .page-intro h1{font-size:clamp(40px,11vw,58px);letter-spacing:-.06em}
+  .page-intro>p{font-size:15px}
+  .goal-switch{overflow-x:auto}
+  .goal-switch button{flex:0 0 auto;padding:0 13px;font-size:13px}
+  .calc-fields{grid-template-columns:1fr 1fr}
+  .calc-fields label,.field-label{font-size:12px}
+  .calc-controls{flex-wrap:wrap}
+  .calc-result{align-items:flex-start;flex-direction:column;gap:14px}
+  .bju{gap:18px}
+  .meal-layout{grid-template-columns:1fr}
+  .diet-video-section{padding:15px;margin-bottom:55px}
+  .diet-video-grid{grid-template-columns:1fr}
+  .workout-layout{gap:14px;padding:20px 0 68px}
+  .muscle-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .muscle-menu button{min-height:48px;padding:0 10px;font-size:12px}
+  .workout-cover{min-height:205px;padding:18px}
+  .workout-cover h2{font-size:27px}
+  .workout-cover p{font-size:13px}
+  .rest-card{display:grid;grid-template-columns:1fr auto;gap:12px}
+  .rest-label{grid-column:1/-1}
+  .rest-choices{grid-column:1/-1}
+  .timer-readout{font-size:23px}
+  .exercise-item{align-items:flex-start;gap:10px;padding:12px}
+  .exercise-item em{font-size:12px;line-height:1.5}
+  .watch-btn{padding:0 9px;font-size:12px}
+  .plans-grid{grid-template-columns:1fr;padding-top:16px}
+  .plan-card{padding:21px}
+  .admin-shell{width:calc(100% - 32px);padding:25px 0 78px}
+  .admin-top{align-items:flex-start;gap:12px}
+  .admin-top h1{font-size:34px}
+  .admin-top>.btn-outline{min-height:40px;padding:0 11px;font-size:12px}
+  .admin-security{align-items:flex-start;font-size:12px;line-height:1.55}
+  .admin-tabs{margin:14px -2px 18px;gap:5px}
+  .admin-tabs button{min-height:40px;padding:0 12px;font-size:12px}
+  .admin-table{padding:16px;margin:12px 0;border-radius:17px}
+  .admin-table-top{align-items:flex-start;gap:10px}
+  .admin-table-top h3{font-size:19px}
+  .admin-add{flex-direction:column}
+  .admin-add input,.admin-add select{width:100%;min-width:0}
+  .admin-form-grid{grid-template-columns:1fr}
+  .admin-stats{grid-template-columns:1fr 1fr}
+  .admin-gate{width:calc(100% - 32px);padding:27px;margin:30px auto}
+  .admin-gate h1{font-size:46px}
+  .modal-overlay{align-items:end;padding:10px}
+  .modal-card{max-height:90dvh;overflow:auto;padding:24px 19px;border-radius:22px 22px 16px 16px}
+  .cookie-consent{bottom:78px;padding:16px;gap:12px}
+  .cookie-copy{align-items:flex-start}
+  .cookie-copy p{font-size:13px}
+  .cookie-actions{width:100%}
+  .cookie-actions .btn-red,.cookie-necessary{flex:1;justify-content:center;font-size:12px}
+  .install-call{left:14px;right:14px;bottom:77px;justify-content:center}
+  .toast{left:14px;right:14px;bottom:76px;justify-content:center}
+  .site-foot{padding-bottom:96px}
+  .bottom-nav{
+    display:flex;position:fixed;z-index:20;left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));
+    height:66px;padding:6px;border:1px solid #ffffff1e;border-radius:19px;
+    background:#111318ed;backdrop-filter:blur(18px);box-shadow:0 16px 42px #0009
+  }
+  .bottom-nav button{min-width:0;flex:1;gap:4px;color:#a3a7af;font-size:12px}
+  .bottom-nav button .bi{font-size:19px}
+  .bottom-nav button.nav-current{border-radius:13px;background:#29171b;color:#ff6a74}
+}
+@media(max-width:390px){
+  .topbar{padding-inline:12px}
+  .brand-word{font-size:17px}
+  .login-button{padding:0 9px}
+  .login-button span{font-size:12px}
+  .landing-photo-wrap{height:390px}
+  .landing-stats>span{padding-inline:6px}
+  .landing-stats small{font-size:12px}
+  .calorie-ring{width:132px}
+  .calorie-ring b{font-size:25px}
+  .activity-cards{grid-template-columns:1fr}
+  .weight-mini{grid-column:auto}
+  .bju{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+
+
+/* Dashboard home and the training catalogue use the same icon language. */
+.hero{
+  min-height:550px;margin:28px 0 18px;padding:clamp(24px,4vw,46px);
+  border:1px solid #ffffff18;border-radius:28px;overflow:hidden;
+  background:radial-gradient(ellipse at 83% 17%,#6b283044,transparent 32%),linear-gradient(125deg,#17151a,#101216 58%,#171216);
+  box-shadow:0 22px 58px #0005
+}
+.hero-copy{width:56%;padding:28px 0 50px}
+.hero h1{font:800 clamp(52px,6.5vw,78px)/.98 system-ui,-apple-system,'Segoe UI',sans-serif;letter-spacing:-.07em}
+.hero h1 span{color:#ff5c68}
+.hero-copy>p{max-width:420px;font-size:16px;line-height:1.7;color:#b7bac2}
+.hero-metrics{gap:0;margin-top:34px;padding-top:22px;border-top:1px solid #ffffff15}
+.hero-metrics span{padding:0 20px;border-right:1px solid #ffffff15}
+.hero-metrics span:first-child{padding-left:0}.hero-metrics span:last-child{border:0}
+.hero-metrics b{font-size:24px}.hero-metrics small{font-size:12px;color:#a3a7af}
+.hero-visual{right:2%;top:8%;width:44%;height:84%;opacity:.95}
+.hero-orbit{border-color:#ffffff18}.orbit-b{border-color:#ffffff26}
+.hero-a{font-size:clamp(180px,23vw,280px);color:#f4f3f4;text-shadow:0 0 100px #f0445255}
+.hero-bar{box-shadow:0 0 30px #f0445266}.hero-bar span{background:linear-gradient(#ff7b84,#d43142)}
+.hero-stamp{top:8%;right:2%;padding:12px 14px;border-radius:13px;border-color:#ffffff24;background:#111318dd;font-size:12px}
+.hero-stamp .bi{color:#ff6570;font-size:17px}
+.hero-caption,.hero-foot{font-size:12px;color:#a1a4ac}
+.hero-foot{left:46px;right:46px;bottom:24px}
+.quick-grid{gap:14px;padding:10px 0 24px}
+.quick-card{min-height:215px;padding:22px;border:1px solid #ffffff16;border-radius:20px;background:linear-gradient(145deg,#191b21,#111318);box-shadow:0 15px 36px #0003}
+.quick-card:hover{transform:translateY(-4px);border-color:#f044525c;box-shadow:0 22px 44px #0005}
+.quick-card.red-card{border-color:#7b303b;background:radial-gradient(ellipse at 100% 0,#81303b44,transparent 45%),linear-gradient(145deg,#24151a,#131418)}
+.quick-icon{width:46px;height:46px;margin-bottom:18px;border-radius:14px;border-color:#743a43;background:#2c171c;color:#ff6973}
+.quick-icon .bi{font-size:21px}
+.quick-card>small{font-size:12px;color:#a9adb5;letter-spacing:1.1px}
+.quick-card>strong{font-size:19px;line-height:1.35}
+.quick-arrow{color:#ff6570}.quick-arrow.bi{font-size:18px}
+.quick-bg{color:#ffffff08;font-size:130px}
+.section-block{padding:62px 0}
+.group-grid{gap:12px}
+.group-tile{min-height:165px;padding:16px;border:1px solid #ffffff14;border-radius:17px;background:linear-gradient(145deg,#17191e,#101216)}
+.group-tile:hover{transform:translateY(-3px);background:#1c1f25;border-color:#f044525c}
+.tile-icon{width:38px;height:38px;display:grid;place-items:center;margin:10px 0;border:1px solid #6b343d;border-radius:12px;background:#2a171c;color:#ff6873}
+.tile-icon .bi{font-size:19px}
+.group-tile b{font-size:14px}.group-tile small{font-size:12px;color:#9da2ab}
+.group-tile>.bi{color:#9da2ab}
+.cover-symbol{right:20px;bottom:18px;font-size:96px;color:#ff727c18}
+.cover-symbol .bi{font-size:1em}
+.home-strip{border-color:#ffffff14;padding:35px 0 50px}
+.strip-quote{color:#ff5e69}.home-strip p{font-size:21px}
+@media(max-width:1050px){
+  .hero{min-height:510px}.hero-copy{width:60%}.hero-visual{width:40%;right:0}
+}
+@media(max-width:720px){
+  .hero{min-height:630px;margin:18px 0 12px;padding:22px;border-radius:22px}
+  .hero-copy{width:100%;padding:16px 0 220px}
+  .hero h1{font-size:clamp(48px,12vw,66px);letter-spacing:-.065em}
+  .hero-copy>p{font-size:14px;max-width:320px}
+  .hero-actions{flex-wrap:wrap}
+  .hero-metrics{gap:0;margin-top:24px;padding-top:17px}
+  .hero-metrics span{padding:0 11px}.hero-metrics b{font-size:18px}.hero-metrics small{font-size:12px}
+  .hero-visual{width:100%;height:270px;top:auto;bottom:24px;right:0;opacity:.8}
+  .hero-a{font-size:180px}.hero-bar{width:210px}.hero-bar span{height:54px}
+  .hero-stamp{right:0;top:0;font-size:12px}.hero-foot{left:22px;right:22px;bottom:13px;font-size:12px}
+  .quick-grid{grid-template-columns:1fr;gap:10px;padding-top:8px}
+  .quick-card{min-height:150px;padding:17px}
+  .quick-icon{width:38px;height:38px;margin-bottom:12px}
+  .quick-card>strong{font-size:17px}
+  .group-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .group-tile{min-height:140px;padding:12px}
+  .tile-icon{width:34px;height:34px;margin:7px 0}
+  .section-block{padding:42px 0}
+  .home-strip p{font-size:17px}
+}
+
+/* The page sits inside the shared shell; let the photo occupy its grid/flex cell. */
+.public-landing{width:100%;margin:0}
+.landing-photo-wrap{width:100%}
+.install-call{transform:none}
+@media(max-width:720px){.landing-photo-wrap{width:100%;flex:0 0 auto}.install-call{transform:none}}
+
+.legal-page{max-width:850px;margin:0 auto;padding:74px 0 100px;min-height:65vh}.legal-page h1{font-size:clamp(34px,6vw,58px);line-height:1.1;margin:18px 0 26px;letter-spacing:-.04em}.legal-status{display:flex;align-items:flex-start;gap:14px;padding:18px;border:1px solid #684047;background:#24161a;border-radius:16px;color:#f4d8db}.legal-status>svg{flex:none;color:#ff6875}.legal-status p,.legal-copy{font-size:16px;line-height:1.8;color:#c9cbd0}.legal-status p{margin:6px 0 0}.legal-copy{padding:18px 0}.payment-setup-note{padding:14px;border:1px solid #62413d;background:#211916;border-radius:12px;color:#f0c4b8;font-size:14px;line-height:1.6}.profile-billing{margin-top:25px;padding-top:20px;border-top:1px solid #34363c}.profile-billing h3{font-size:18px;margin:0 0 12px}.profile-billing h4{font-size:15px;margin:20px 0 8px}.billing-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #2a2d33}.billing-row>div{display:flex;flex-direction:column;gap:5px}.billing-row b{font-size:14px}.billing-row small{font-size:13px;color:#a4a8b0}.billing-row button,.account-delete button{font-size:13px}.account-delete{margin-top:22px;padding-top:16px;border-top:1px solid #34363c}.account-delete p{font-size:14px;line-height:1.6;color:#adb0b7}.account-delete .field-label{font-size:14px;margin:12px 0}.empty-state{padding:14px;color:#a9adb5;font-size:15px;line-height:1.6}.mobile-menu-panel{display:none}
+@media(max-width:720px){.legal-page{padding:50px 0 85px}.legal-copy,.legal-status p{font-size:15px}.billing-row{align-items:flex-start;flex-direction:column}.mobile-menu-panel{position:fixed;z-index:9;top:70px;left:4%;right:4%;display:flex;flex-direction:column;padding:8px;background:#15171c;border:1px solid #383d46;border-radius:16px;box-shadow:0 22px 50px #000b}.mobile-menu-panel button{min-height:48px;text-align:left;padding:0 14px;color:#f3f3f5;background:transparent;border:0;border-bottom:1px solid #ffffff12;font-size:15px}.mobile-menu-panel button:last-child{border-bottom:0}}
+
+.video-protection-note{margin:0;padding:10px 12px;background:#111319;color:#aeb2ba;font-size:13px;line-height:1.55;border-top:1px solid #ffffff12}.secure-player{overflow:hidden}
+
+.diet-content-editor{display:grid;gap:16px;margin:14px 0}.diet-content-editor textarea{width:100%;min-height:110px;padding:11px;background:#090909;border:1px solid #353535;color:#eee;font:14px/1.55 system-ui,sans-serif;resize:vertical}.diet-editor-section{display:grid;gap:10px;border:1px solid #303030;background:#101010;padding:14px}.diet-editor-title{display:flex;align-items:center;justify-content:space-between;gap:12px}.diet-editor-title>b{font-size:15px}.diet-editor-meal{display:grid;grid-template-columns:.7fr 1.1fr 1.5fr auto;align-items:end;gap:9px;padding:10px 0;border-top:1px solid #292929}.diet-editor-meal .field-label{font-size:13px}.diet-editor-meal input{min-height:40px}@media(max-width:720px){.diet-editor-meal{grid-template-columns:1fr 1fr}.diet-editor-meal .icon-danger{justify-self:start}.diet-editor-title{align-items:flex-start;flex-direction:column}}
+.profile-identity{display:grid;gap:4px;margin:12px 0 17px;padding:12px;border:1px solid #30343b;border-radius:12px;background:#101216}.profile-identity span,.profile-identity small{color:#9da3ad;font-size:13px}.profile-identity b{color:#f5f5f6;font-size:15px;overflow-wrap:anywhere}.billing-note{margin:4px 0 12px;color:#aeb2ba;font-size:13px;line-height:1.55}
+
+/* Membership and in-gym operations */
+.gym-membership{max-width:1120px;margin:0 auto;padding:34px 0 100px}.gym-module-head{display:flex;align-items:flex-start;gap:18px;margin:20px 0 28px}.gym-module-head>div{flex:1}.gym-module-head h1{font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-.05em;margin:12px 0}.gym-module-head h1 i{color:#ff5966;font-style:normal}.gym-module-head p,.gym-admin-hint{max-width:690px;color:#aeb1b8;line-height:1.65}.gym-module-icon{width:54px;height:54px;display:grid;place-items:center;flex:none;border:1px solid #633039;border-radius:16px;background:#241519;color:#ff6570;font-size:24px}.gym-member-badge{margin-left:auto;padding:10px 13px;border:1px solid #53363b;border-radius:999px;color:#e5b7bb;font-size:11px;font-weight:800;letter-spacing:.08em;white-space:nowrap}.gym-member-badge.is-active{border-color:#316444;background:#14241a;color:#8ee2a6}.gym-member-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.gym-member-card,.gym-admin-class{padding:18px;border:1px solid #ffffff16;border-radius:18px;background:#121418}.gym-card-title{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:#ff6470}.gym-card-title>span{display:flex;flex-direction:column;gap:4px;color:#fff}.gym-card-title b{font-size:16px}.gym-card-title small{font-size:12px;color:#a7abb3}.gym-qr-card{display:grid;justify-items:center;align-content:start}.gym-qr-card .gym-card-title{justify-self:stretch}.membership-qr{width:min(260px,100%);height:auto;margin:8px 0 14px;padding:10px;border:1px solid #333943;border-radius:14px;background:#111318}.gym-qr-placeholder{width:240px;max-width:100%;min-height:200px;display:grid;place-items:center;margin:8px 0;padding:20px;border:1px dashed #484b53;border-radius:14px;color:#aeb1b8;text-align:center;line-height:1.5}.gym-qr-expiry{display:flex;align-items:center;gap:8px;color:#aeb1b8;font-size:12px}.gym-class-list{display:grid}.gym-class-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #ffffff12}.gym-class-row>div:first-child{display:grid;gap:5px}.gym-class-row>div:first-child b{font-size:14px}.gym-class-row small{color:#aeb1b8;font-size:12px;line-height:1.4}.gym-booking-actions{display:flex;align-items:flex-end;gap:8px;flex-direction:column}.booking-status{font-size:10px;letter-spacing:.06em;font-weight:800}.status-booked{color:#92daa2}.status-waitlisted{color:#f4c477}.status-attended{color:#92daa2}.status-no_show,.status-cancelled{color:#c79096}.gym-freeze-form{display:grid;gap:10px}.gym-freeze-form .field-label{margin:0}.gym-freeze-form select,.gym-freeze-form textarea{width:100%;margin-top:7px;padding:12px;border:1px solid #363a42;border-radius:11px;background:#0d0f12;color:#f7f7f7;font:inherit}.gym-history-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid #ffffff12;color:#b8bbc2;font-size:12px}.gym-history-row b{color:#e1e2e6;font-weight:600;text-align:right}.gym-class-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:20px}.gym-class-form label{display:grid;gap:7px;color:#c4c6cc;font-size:12px}.gym-class-form input{min-width:0;width:100%;padding:11px;border:1px solid #363a42;border-radius:10px;background:#0d0f12;color:#fff;font:inherit}.gym-admin-class-list{display:grid;gap:10px}.gym-admin-class{padding:14px}.gym-admin-class-head{display:flex;align-items:center;gap:12px;justify-content:space-between}.gym-admin-class-head>div{display:grid;gap:5px;flex:1}.gym-admin-class-head small{color:#aeb1b8;line-height:1.4}.gym-admin-class-head>span{color:#e8c1c5;font-size:12px;white-space:nowrap}.gym-booking-admin-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0 0;margin-top:9px;border-top:1px solid #ffffff10;color:#c8cbd1;font-size:12px}.gym-secure-chip{display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid #2e6943;border-radius:999px;background:#14241a;color:#95d9a5;font-size:11px}.qr-scanner-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.qr-scanner-controls form{display:flex;gap:8px;flex:1;min-width:min(100%,340px)}.qr-scanner-controls input{flex:1;min-width:0;padding:12px;border:1px solid #363a42;border-radius:10px;background:#0d0f12;color:white}.qr-camera-wrap{display:grid;justify-items:start;gap:12px;margin:12px 0}.qr-camera-wrap video{width:min(100%,460px);aspect-ratio:4/3;object-fit:cover;border-radius:16px;background:#000}.gym-checkin-success{display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px;border:1px solid #2b6440;border-radius:13px;background:#14241a;color:#97dfa6}.gym-checkin-success span{display:grid;gap:5px}.gym-checkin-success small{color:#c6dfcb}.gym-freeze-admin-row{align-items:center}.gym-lead-phone{color:#ff7b82;text-decoration:none}.gym-intro-form{display:grid;gap:10px;max-width:560px}.gym-landing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.gym-landing-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}.gym-landing-card{padding:17px;border:1px solid #ffffff16;border-radius:15px;background:#121418}.gym-landing-card h3{margin:0 0 7px}.gym-landing-card p{margin:0;color:#aeb1b8;line-height:1.6}.gym-landing-section{padding:60px 0;border-top:1px solid #ffffff12}.gym-landing-section h2{font-size:clamp(25px,4vw,38px);margin:0 0 20px}.gym-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.gym-gallery img{width:100%;height:210px;object-fit:cover;border-radius:15px;border:1px solid #ffffff18}.gym-review-stars{color:#ffb450;letter-spacing:.15em}
+@media(max-width:760px){.gym-member-grid{grid-template-columns:1fr}.gym-class-form{grid-template-columns:1fr 1fr}.gym-landing-grid{grid-template-columns:1fr 1fr}.gym-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.gym-gallery img{height:170px}.gym-member-badge{font-size:9px;padding:8px;margin-top:8px}.gym-module-head{gap:12px}.gym-module-icon{width:44px;height:44px}.bottom-nav button{font-size:10px}.gym-class-row{align-items:flex-start}.gym-admin-class-head{flex-wrap:wrap}}
+@media(max-width:420px){.gym-module-head{flex-wrap:wrap}.gym-module-head>div{min-width:calc(100% - 62px)}.gym-member-badge{margin-left:56px}.gym-class-form{grid-template-columns:1fr}.gym-landing-grid{grid-template-columns:1fr}.gym-gallery img{height:145px}.bottom-nav button span{font-size:9px}}
+
+.language-switch{min-width:38px;height:34px;padding:0 8px;border:1px solid #343840;border-radius:10px;background:#121418;color:#f4f4f5;font-weight:800;font-size:11px;letter-spacing:.04em;cursor:pointer}.language-switch:hover{border-color:#ff5966;color:#ff7b82}.top-right{gap:10px}
+
+.plan-price-secondary{display:block!important;margin-top:4px;font-size:12px!important;color:#9da3ad!important;font-weight:600}

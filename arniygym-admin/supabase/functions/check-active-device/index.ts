@@ -1,0 +1,2 @@
+import {json,preflight,service,requireUser} from '../_shared/base.ts';
+Deno.serve(async req=>{const pf=preflight(req);if(pf)return pf;try{const {user,token}=await requireUser(req);const jwt=JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));const {data}=await service.from('active_devices').select('session_id').eq('user_id',user.id).maybeSingle();return json({active:!!data&&data.session_id===jwt.session_id}, 200, req)}catch{return json({active:false}, 200, req)}});

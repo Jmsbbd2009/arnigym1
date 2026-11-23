@@ -1,0 +1,5 @@
+shots/
+dist/
+*.pem
+newsImage.js
+__pycache__/
