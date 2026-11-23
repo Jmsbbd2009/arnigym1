@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { withBase, withSiteBase } from '../lib/base';
 import { ArrowDown, ArrowRight, ArrowUpRight, Clock3, Dumbbell, Instagram, MapPin, ShieldCheck, Sparkles } from './BootstrapIcons';
-import { NewsSection } from './News';
 import { invoke, supabase } from '../lib/supabase';
 import { useLanguage } from './Language';
 import { PhoneInput } from './PhoneInput';
@@ -49,7 +48,6 @@ export function LandingPage({ onAuth, onNavigate, onOpenNews }: Props) {
       <div className="coach-portrait-card"><img src={withBase('/images/coach-portrait.webp')} alt="ArniyGym uchun taqdim etilgan portret" width="225" height="225" loading="lazy" decoding="async"/><div><small>ARNIYGYM / PORTRET</small><b>Mashg‘ulotdan lavha</b><span>Platforma materiallari</span></div></div>
     </section>
 
-    <NewsSection onOpen={id => onOpenNews ? onOpenNews(id) : location.assign(withSiteBase(`/news/${id}`))} onAll={() => onOpenNews ? onOpenNews(null) : location.assign(withSiteBase('/news'))}/>
 
     <section className="landing-plan-band"><div><div className="eyebrow"><i/> O‘ZINGGA MOS TARIFNI TANLA</div><h2>Bugun boshlagin.<br/><span>Izchil davom et.</span></h2><p>Oylik yoki yillik a’zolik orqali platformadagi mashq va ovqatlanish materiallariga ulan.</p></div><div className="landing-plan-actions"><button className="btn-red" onClick={() => onNavigate('plans')}>Tariflarni ko‘rish <ArrowRight size={15}/></button><button className="btn-outline" onClick={onAuth}>Kirish / ro‘yxatdan o‘tish</button></div></section>
 

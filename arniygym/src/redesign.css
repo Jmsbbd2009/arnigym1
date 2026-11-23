@@ -611,3 +611,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .language-switch{min-width:38px;height:34px;padding:0 8px;border:1px solid #343840;border-radius:10px;background:#121418;color:#f4f4f5;font-weight:800;font-size:11px;letter-spacing:.04em;cursor:pointer}.language-switch:hover{border-color:#ff5966;color:#ff7b82}.top-right{gap:10px}
 
 .plan-price-secondary{display:block!important;margin-top:4px;font-size:12px!important;color:#9da3ad!important;font-weight:600}
+/* Guest: sign up button + members-only gate */
+.signup-button{min-height:44px;border-radius:13px;border:1px solid #f04452;background:linear-gradient(135deg,#ff6873,#e33b4b);color:#fff;padding:0 16px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.signup-button:hover{filter:brightness(1.08)}
+.members-only{max-width:560px;margin:64px auto;padding:36px 30px;border:1px solid #ffffff14;border-radius:22px;background:linear-gradient(180deg,#16181d,#101115);text-align:left;min-height:120px}
+.members-only h2{font-size:30px;margin:10px 0 12px}
+.members-only p{color:#a7aab2;line-height:1.6;margin:0 0 22px}
+.members-only-actions{display:flex;gap:10px;flex-wrap:wrap}
+.members-only-actions button{display:inline-flex;align-items:center;gap:8px}
+.bottom-nav .nav-signup{color:#ff6873}
+@media (max-width:720px){.top-right .signup-button{display:none}.bottom-nav.guest-nav{grid-template-columns:repeat(4,1fr)}.members-only{margin:36px auto 110px;padding:26px 20px}.members-only h2{font-size:24px}}

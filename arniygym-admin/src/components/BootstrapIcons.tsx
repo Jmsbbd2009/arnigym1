@@ -36,6 +36,7 @@ export const Info = makeIcon('info-circle');
 export const Instagram = makeIcon('instagram');
 export const LockKeyhole = makeIcon('lock-fill');
 export const LogIn = makeIcon('box-arrow-in-right');
+export const UserPlus = makeIcon('person-plus');
 export const MapPin = makeIcon('geo-alt-fill');
 export const Menu = makeIcon('list');
 export const Minus = makeIcon('dash');
