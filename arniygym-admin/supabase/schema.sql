@@ -1229,3 +1229,5 @@ grant execute on function public.consume_ai_scan(uuid,int,date) to service_role;
 -- Trigger funksiyalari REST /rpc orqali chaqirilmasligi kerak.
 revoke all on function public.audit_admin_mutation() from public,anon,authenticated;
 revoke all on function public.gym_news_before_write() from public,anon,authenticated;
+-- Mehmon (anon) push obunalari jadvaliga umuman kira olmasin.
+revoke all on public.push_subscriptions from anon;
