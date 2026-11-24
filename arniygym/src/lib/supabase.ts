@@ -4,10 +4,14 @@ import { BASE } from './base';
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 export const backendReady = Boolean(url && key);
+// The admin build sets VITE_ADMIN_APP=1: its session lives in sessionStorage only, so closing the tab
+// (or opening the admin link later) always asks for password + Telegram 2FA again.
+export const isAdminApp = import.meta.env.VITE_ADMIN_APP === '1';
+const storage = typeof window === 'undefined' ? undefined : isAdminApp ? window.sessionStorage : window.localStorage;
 export const supabase = backendReady ? createClient(url!, key!, {
   // Site and admin are served from the same origin (GitHub Pages sub-paths), so each app keeps its
   // session under its own storage key; otherwise an admin login would also sign in the member site.
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: `arniygym-auth:${BASE}` }
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: !isAdminApp, storageKey: `arniygym-auth:${BASE}`, storage }
 }) : null;
 
 export async function invoke<T = any>(name: string, body?: unknown): Promise<T> {

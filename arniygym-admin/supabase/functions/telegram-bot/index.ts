@@ -65,7 +65,7 @@ async function onMessage(message: any) {
       telegram_user_id: from.id, token, expires_at: new Date(Date.now() + 180_000).toISOString(),
     }, { onConflict: 'telegram_user_id' });
     if (error) throw error;
-    await send(chatId, 'Kirishni tasdiqlash uchun ArniyGym’da kiritgan telefon raqamingizni o‘zingizning Telegram kontaktingiz sifatida yuboring.', {
+    await send(chatId, 'Raqamingizni tekshiramiz.\n\nPastdagi <b>📱 Raqamni yuborish</b> tugmasini bosing. Raqam saytda kiritilgan raqam bilan mos kelsa, kirish kodi yuboriladi.', {
       reply_markup: { keyboard: [[{ text: '📱 Raqamni yuborish', request_contact: true }]], resize_keyboard: true, one_time_keyboard: true },
     });
     return;
@@ -83,10 +83,15 @@ async function onMessage(message: any) {
         displayName: [from.first_name, from.last_name].filter(Boolean).join(' ').slice(0, 120),
       });
       await service.from('bot_pending_challenges').delete().eq('telegram_user_id', from.id);
-      await send(chatId, `ArniyGym kirish kodingiz: <code>${result.code}</code>\nKod 3 daqiqa amal qiladi. Uni faqat ArniyGym sahifasiga kiriting.`, remove);
+      // One-tap return: the site finishes the login itself when opened from this button (same browser).
+      const origin = (Deno.env.get('APP_ORIGIN') || '').replace(/\/+$/, '');
+      const loginButton = /^https:\/\//.test(origin)
+        ? { reply_markup: { inline_keyboard: [[{ text: '✅ Saytga kirish', url: `${origin}/?login_code=${result.code}` }]] } }
+        : remove;
+      await send(chatId, `✅ Raqamingiz tasdiqlandi: <b>${result.phone}</b>\n\nKirish kodi: <code>${result.code}</code>\nKod 3 daqiqa amal qiladi.\n\nPastdagi tugmani bosing yoki kodni saytdagi maydonga kiriting. Kodni hech kimga bermang.`, loginButton);
     } catch (error) {
       console.warn('OTP request rejected', (error as Error).message);
-      await send(chatId, 'Raqam mos kelmadi yoki kirish so‘rovi eskirdi. Saytga qaytib, yangi urinish boshlang.', remove);
+      await send(chatId, '❌ Bu Telegram akkauntidagi raqam saytda kiritilgan raqamga mos kelmadi yoki so‘rov eskirdi.\n\nSaytda aynan shu Telegram akkauntiga bog‘langan raqamni kiriting va qaytadan urinib ko‘ring.', remove);
     }
   }
 }

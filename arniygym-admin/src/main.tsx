@@ -26,6 +26,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './redesign.css';
 import { PhoneInput, isE164 } from './components/PhoneInput';
 // Clickjacking guard: static hosting cannot send X-Frame-Options, so refuse to run framed.
+// Older admin builds kept the session in localStorage; remove it so the admin link always asks to log in.
+try { Object.keys(localStorage).filter(k => k.startsWith('sb-') || k.includes('/admin/')).forEach(k => localStorage.removeItem(k)); } catch {}
 if (window.top !== window.self) { try { window.top!.location.replace(window.location.href); } catch { document.documentElement.innerHTML = ''; } throw new Error('framed'); }
 
 
@@ -137,7 +139,12 @@ function AdminAuthModal({onClose,onSuccess,notify}:{onClose:()=>void;onSuccess:(
  return <Modal onClose={onClose}><div className="auth-badge"><ShieldCheck size={20}/></div><div className="eyebrow">ADMIN / TELEGRAM 2FA</div><h2>{challenge?'Telegram kodini kiriting.':'Admin sifatida kiring.'}</h2><p>{challenge?'Admin Telegram botiga yuborilgan 6 xonali kodni kiriting.':'Login va paroldan so‘ng tasdiqlash kodi tasdiqlangan admin Telegram akkauntiga yuboriladi.'}</p>{error&&<div className="form-error" role="alert">{error}</div>}{!challenge?<form onSubmit={start}><label className="field-label">Email<input type="email" autoComplete="username" required value={email} onChange={event=>setEmail(event.target.value)}/></label><label className="field-label">Parol<input type="password" autoComplete="current-password" required value={password} onChange={event=>setPassword(event.target.value)}/></label><button className="btn-red full-btn">Telegram kodini yuborish</button></form>:<form onSubmit={verify}><label className="field-label">6 xonali tasdiqlash kodi<input inputMode="numeric" pattern="[0-9]{6}" maxLength={6} value={code} onChange={event=>setCode(event.target.value)} required/></label>{waiting&&<small className="waiting-note">Telegram botdagi tasdiq kodi kutilmoqda…</small>}<button className="btn-red full-btn" disabled={waiting||code.length!==6}>Tasdiqlash</button></form>}</Modal>;
 }
 function AdminGate({onLogin}:{onLogin:()=>void}){return <div className="admin-gate"><span className="auth-badge"><ShieldCheck/></span><div className="eyebrow">ARNIYGYM / ADMIN</div><h1>Boshqaruv<br/><i>maydoni.</i></h1><p>Admin panelga kirish uchun parol va Telegram 2FA talab qilinadi.</p><button className="btn-red" onClick={onLogin}>Admin sifatida kirish <ArrowRight size={15}/></button></div>}
+const ADMIN_IDLE_MS=20*60*1000;
+function useAdminIdleLogout(onTimeout:()=>void){
+ useEffect(()=>{let timer=window.setTimeout(onTimeout,ADMIN_IDLE_MS);const reset=()=>{window.clearTimeout(timer);timer=window.setTimeout(onTimeout,ADMIN_IDLE_MS)};const events=['pointerdown','keydown','scroll','touchstart'];events.forEach(e=>window.addEventListener(e,reset,{passive:true}));return()=>{window.clearTimeout(timer);events.forEach(e=>window.removeEventListener(e,reset))}},[]);
+}
 function AdminPanel({notify}:{notify:(s:string)=>void}){
+ useAdminIdleLogout(()=>{void supabase?.auth.signOut().finally(()=>{notify('20 daqiqa harakatsizlik sababli chiqildi.');window.setTimeout(()=>location.reload(),1200)})});
  const [tab,setTab]=useState('Kontent'),[receiptUrls,setReceiptUrls]=useState<Record<string,string>>({}),[memberLabels,setMemberLabels]=useState<Record<string,string>>({}),[exercises,setExercises]=useState<any[]>([]),[payments,setPayments]=useState<any[]>([]),[plans,setPlans]=useState<any[]>([]),[subs,setSubs]=useState<any[]>([]),[diets,setDiets]=useState<any[]>([]),[about,setAbout]=useState('{}'),[aboutRow,setAboutRow]=useState<any>(null),[card,setCard]=useState<any>({id:1,card_number:'',cardholder:'',instructions:''}),[paymentPage,setPaymentPage]=useState(0),[paymentTotal,setPaymentTotal]=useState(0),[subscriptionPage,setSubscriptionPage]=useState(0),[subscriptionTotal,setSubscriptionTotal]=useState(0),[activeSubscriptionTotal,setActiveSubscriptionTotal]=useState(0),[cancelledSubscriptionTotal,setCancelledSubscriptionTotal]=useState(0),[summary,setSummary]=useState<any>({});
  const PAGE_SIZE=50;
  const refreshSummary=async()=>{if(!supabase)return;const {data,error}=await supabase.rpc('admin_dashboard_summary');if(error){notify('Hisobot ma’lumotlari yuklanmadi.');return}if(data)setSummary(data)};

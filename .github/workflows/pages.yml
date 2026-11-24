@@ -54,8 +54,12 @@ jobs:
           mkdir -p _site/admin
           cp -a arniygym/dist/. _site/
           cp -a arniygym-admin/dist/. _site/admin/
-          # GitHub Pages serves 404.html for unknown paths: reuse the SPA shell for deep links.
+          # GitHub Pages serves 404.html (HTTP 404) for unknown paths: reuse the SPA shell for deep links.
           cp _site/index.html _site/404.html
+          # Top-level routes get a real index.html so direct visits and crawlers receive HTTP 200.
+          for route in news diet workouts gym plans about terms privacy refund; do
+            mkdir -p "_site/$route" && cp _site/index.html "_site/$route/index.html"
+          done
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

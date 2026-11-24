@@ -625,3 +625,77 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .admin-tabs button{display:inline-flex;align-items:center;gap:7px}
 .admin-tabs button .bi{color:#8b8f98}
 .admin-tabs button.tab-on .bi{color:#ff6873}
+
+/* ===== Mobile: minimalist pass (≤720px) =====
+   One spacing scale (8/12/16/20/24/40), one heading style per level, no decorative overlays,
+   full-width primary actions, 44px+ touch targets, legal links always reachable. */
+.modal-overlay{z-index:60}
+body:has(.modal-overlay) .bottom-nav,body:has(.modal-overlay) .install-call{display:none}
+.launch-note{display:flex;gap:10px;align-items:flex-start;margin:0 0 18px;padding:12px 14px;border:1px solid #ffffff14;border-radius:14px;background:#ffffff08;color:#c9ccd3;font-size:13px;line-height:1.5}
+.launch-note b{color:#fff;font-weight:650}
+.launch-note .live-dot{flex:0 0 8px;margin-top:6px}
+.consent-row{display:flex;gap:10px;align-items:flex-start;color:#a7aab2;font-size:13px;line-height:1.5}
+.consent-row input{width:18px;height:18px;margin-top:2px;accent-color:#f04452;flex:0 0 18px}
+.consent-row a{color:#ff6873}
+.otp-steps{list-style:none;counter-reset:s;margin:4px 0 16px;padding:0;display:grid;gap:10px}
+.otp-steps li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;column-gap:10px;font-size:13px;line-height:1.45;color:#a7aab2}
+.otp-steps li::before{content:counter(s);grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#ffffff0d;color:#fff;font-weight:700;font-size:12px}
+.otp-steps li b{color:#f4f4f5;font-weight:650}
+.telegram-link{display:flex!important;align-items:center;justify-content:center;gap:9px;min-height:48px;margin-bottom:16px;border-radius:13px;background:#229ED9!important;color:#fff!important;font-weight:700;text-decoration:none}
+.legal-operator{margin:0 0 18px;padding:14px 16px;border:1px solid #ffffff14;border-radius:14px;color:#c9ccd3;font-size:14px;line-height:1.6}
+.legal-operator p{margin:0}
+.legal-operator a{color:#ff6873}
+.legal-copy p{white-space:pre-line}
+
+@media (max-width:720px){
+  .shell,.public-landing{width:calc(100% - 40px)}
+  .landing-hero,.landing-copy,.landing-stats,.landing-actions{min-width:0;max-width:100%}
+  .topbar{height:60px;padding:0 16px}
+  .top-right .login-button:not(:has(.bi-person-circle)){display:none}
+  /* hero */
+  .landing-hero{padding:28px 0 8px;gap:20px;border-bottom:0}
+  .landing-copy .eyebrow{font-size:11px;letter-spacing:.12em}
+  .landing-copy h1{font-size:clamp(38px,11vw,46px);letter-spacing:-.045em;line-height:1.02;margin:12px 0 12px}
+  .landing-copy>p{font-size:15px;line-height:1.6;color:#a9acb4;margin:0 0 20px}
+  .landing-actions{display:grid;gap:10px}
+  .landing-actions .btn-red,.landing-actions .btn-quiet{width:100%;justify-content:center;min-height:50px;font-size:15px}
+  .landing-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px;padding-top:0;border-top:0}
+  .landing-stats span{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:12px;border:1px solid #ffffff12;border-radius:14px;background:#ffffff06;min-width:0}
+  .landing-stats b{font-size:13px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+  .landing-stats small{display:none}
+  .landing-stats svg,.landing-stats .bi{width:18px;font-size:18px;color:#ff6873}
+  .landing-photo-wrap{height:auto;min-height:0;aspect-ratio:4/5;margin:4px 0 8px;border-radius:20px;overflow:hidden}
+  .landing-photo{width:100%;height:100%;object-fit:cover}
+  .photo-tag,.photo-stamp,.landing-scroll,.landing-photo-shade{display:none}
+  /* sections */
+  .landing-feature-row,.gym-landing-section,.landing-contact,.news-section{padding:36px 0;gap:16px}
+  .landing-feature-copy h2,.gym-landing-section h2,.landing-contact h2,.landing-plan-band h2,.news-heading h2{font-size:28px;line-height:1.1;letter-spacing:-.03em;font-weight:750;margin:8px 0 10px}
+  .landing-feature-copy>p,.gym-landing-section p,.landing-plan-band p{font-size:15px;line-height:1.6;color:#a9acb4}
+  .coach-portrait-card{height:auto;aspect-ratio:4/5;border-radius:20px}
+  .landing-plan-band{padding:22px 18px;margin:12px 0;border-radius:20px}
+  .landing-plan-actions{grid-template-columns:1fr;width:100%}
+  .landing-plan-actions button{min-height:48px;font-size:14px}
+  .gym-first-session>.btn-red,.gym-intro-form .btn-red{width:100%;justify-content:center;min-height:50px}
+  .gym-intro-form{display:grid;gap:14px;margin-top:16px}
+  /* plans */
+  .page-intro h1,.plans-intro h1{font-size:clamp(34px,10vw,42px);letter-spacing:-.04em}
+  /* footer: legal links always visible, above the bottom bar */
+  .site-foot{flex-direction:column;align-items:flex-start;gap:12px;padding:24px 0 104px;width:calc(100% - 40px)}
+  .site-foot>span:nth-child(2){display:flex!important;flex-wrap:wrap;gap:6px 16px}
+  .site-foot .legal-links button{padding:6px 0;min-height:32px;color:#a9acb4}
+  /* bottom bar */
+  .bottom-nav{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));border-radius:18px;border:1px solid #ffffff14}
+  .bottom-nav button span{font-size:11px}
+  /* legal pages */
+  .legal-page{padding:28px 0 40px}
+  .legal-page h1{font-size:32px;letter-spacing:-.03em;font-weight:750}
+  .legal-copy{font-size:15px;line-height:1.7;color:#c9ccd3}
+  .legal-copy h2{font-size:19px;margin:24px 0 8px}
+  .members-only{margin:28px 0 110px}
+  .members-only-actions{display:grid}
+  .members-only-actions button{width:100%;justify-content:center;min-height:48px}
+}
+.mobile-menu-legal{display:flex;flex-wrap:wrap;gap:4px 14px;padding:10px 18px 12px;border-top:1px solid #ffffff10}
+.mobile-menu-legal button{min-height:auto!important;padding:6px 0!important;border:0!important;background:none!important;color:#8b8f98!important;font-size:12px!important}
+
+@media (max-width:720px){.shell .public-landing{width:100%}}

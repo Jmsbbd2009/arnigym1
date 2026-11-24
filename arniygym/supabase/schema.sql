@@ -1244,3 +1244,6 @@ on conflict (id) do update
   set public = false,
       file_size_limit = excluded.file_size_limit,
       allowed_mime_types = excluded.allowed_mime_types;
+
+-- First-session lead form: record when the visitor consented to processing name + phone.
+alter table public.gym_intro_requests add column if not exists consent_at timestamptz;

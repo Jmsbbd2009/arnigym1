@@ -9,8 +9,9 @@ Deno.serve(async (req) => {
     const fullName = String(body.fullName || '').trim().replace(/\s+/g,' ');
     const phone = String(body.phone || '').replace(/[\s()-]/g,'');
     const note = String(body.note || '').trim().slice(0,500);
+    if (body.consent !== true) return json({ error: 'Ma’lumotlarni qayta ishlashga rozilik kerak.' }, 400, req);
     if (fullName.length < 2 || fullName.length > 120 || !/^\+[1-9][0-9]{7,14}$/.test(phone)) return json({ error: 'Ism va telefon raqamini xalqaro formatda kiriting.' }, 400, req);
-    const { data, error } = await service.from('gym_intro_requests').insert({ full_name: fullName, phone_e164: phone, note }).select('id').single();
+    const { data, error } = await service.from('gym_intro_requests').insert({ full_name: fullName, phone_e164: phone, note, consent_at: new Date().toISOString() }).select('id').single();
     if (error) throw error;
     const token = Deno.env.get('TELEGRAM_BOT_TOKEN') || '';
     const chatId = Deno.env.get('GYM_LEADS_CHAT_ID') || '';

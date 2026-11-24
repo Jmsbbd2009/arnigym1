@@ -19,7 +19,7 @@ cp "$PUBLIC_DIR/public/images/coach-bobur.webp" "$PUBLIC_DIR/public/images/coach
 # Keep deployable Supabase definitions aligned without overwriting the baseline migration.
 cp "$PUBLIC_DIR/supabase/schema.sql" "$ADMIN_DIR/supabase/schema.sql"
 cp "$PUBLIC_DIR/supabase/config.toml" "$ADMIN_DIR/supabase/config.toml"
-for migration in 202611230003_production_gym_payments 202611230004_localized_content 202611230005_news_pwa_push 202611230006_function_hardening 202611230007_vault_bot_cron 202611230008_workout_videos_storage; do
+for migration in 202611230003_production_gym_payments 202611230004_localized_content 202611230005_news_pwa_push 202611230006_function_hardening 202611230007_vault_bot_cron 202611230008_workout_videos_storage 202611240009_intro_consent; do
   cp "$PUBLIC_DIR/supabase/migrations/$migration.sql" "$ADMIN_DIR/supabase/migrations/$migration.sql"
 done
 mkdir -p "$ADMIN_DIR/supabase/tests"
